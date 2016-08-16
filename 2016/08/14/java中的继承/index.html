@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="继承,java,final," />
+  <meta name="keywords" content="java,继承,final," />
 
 
 
@@ -90,7 +90,7 @@
 <meta property="og:url" content="https://FergusChen.github.io/2016/08/14/java中的继承/index.html">
 <meta property="og:site_name" content="城造在山上">
 <meta property="og:description" content="继承是面向对象设计的四大特性之一。从表面上看，继承关系就是“父子”关系。子类可以继承父类非私有的成员变量和成员方法。换句话说，在父类中已经定义的成员变量和成员方法，子类可以直接使用，而不必重新定义。那么，在java中，继承是如何体现的呢？在使用继承关系时，又有哪些要点呢？在这篇文章就简单总结一下。">
-<meta property="og:updated_time" content="2016-08-14T12:08:41.669Z">
+<meta property="og:updated_time" content="2016-08-16T09:45:03.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java中的继承">
 <meta name="twitter:description" content="继承是面向对象设计的四大特性之一。从表面上看，继承关系就是“父子”关系。子类可以继承父类非私有的成员变量和成员方法。换句话说，在父类中已经定义的成员变量和成员方法，子类可以直接使用，而不必重新定义。那么，在java中，继承是如何体现的呢？在使用继承关系时，又有哪些要点呢？在这篇文章就简单总结一下。">
@@ -329,31 +329,8 @@
 <p>在java中实现继承可以更清楚地展现类之间的关系，易于维护。这也是面向对象设计的优点。同时，继承可以提高代码的复用性，提高项目的可扩展性等等。<code>注意：一定不能为了复用代码而随便继承。</code>代码实现是基于设计的，没有“is a”关系的类，就不要建立继承关系。</p>
 <hr>
 <p>java中继承用<strong>extends</strong>关键字。子类中可以直接使用父类的成员变量和成员方法，同时也可以重新定义成员变量和成员方法（<em>覆盖</em>）。在子类中，关键字<strong>this</strong>指向当前的类，关键字<strong>super</strong>指向父类。如下：   </p>
-<pre><code>class Person{
-    String name;
-    void speak(){
-        System.out.println(&quot;my name:&quot; + name);
-    }
-}
-
-class Student extends Person{
-    String university;
-    //覆盖父类的成员方法
-    void speak(){
-        super.speak();
-        System.out.println(&quot;my university:&quot;+ this.university);
-    }
-    void study(){
-        System.out.println(&quot;I should study hard, because it&apos;s my duty&quot;);
-    }
-}
-
-class Worker extends Person{
-    void work(){
-        System.out.println(&quot;I should work hard, because it&apos;s my duty&quot;);
-    }
-}
-</code></pre><h3 id="成员变量的继承"><a href="#成员变量的继承" class="headerlink" title="成员变量的继承"></a>成员变量的继承</h3><p>子类可以继承父类非私有的成员变量，也可以在子类中覆盖父类的成员变量。在子类中，使用this调用子类的成员变量，使用super调用父类的成员变量。  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    String name;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"my name:"</span> + name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">    String university;</div><div class="line">    <span class="comment">//覆盖父类的成员方法</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>.speak();</div><div class="line">        System.out.println(<span class="string">"my university:"</span>+ <span class="keyword">this</span>.university);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"I should study hard, because it's my duty"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worker</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"I should work hard, because it's my duty"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="成员变量的继承"><a href="#成员变量的继承" class="headerlink" title="成员变量的继承"></a>成员变量的继承</h3><p>子类可以继承父类非私有的成员变量，也可以在子类中覆盖父类的成员变量。在子类中，使用this调用子类的成员变量，使用super调用父类的成员变量。  </p>
 <h3 id="成员方法的继承"><a href="#成员方法的继承" class="headerlink" title="成员方法的继承"></a>成员方法的继承</h3><p>子类可以继承父类非私有的成员方法。同时子类可以覆盖父类的成员方法（如上例Student类中是speak方法）。继承中的这个特性让项目更易于扩展。具体来说，就是项目中同样的方法需要有新的实现时（<em>比如：来电显示中以前只显示号码和姓名，现在要添加归属地和头像的显示；播放视频时以前只是单纯地播放，现在要在视频右上角显示当前时间等等。需求变更、添加功能是很常见的</em>）。若项目已经上线，或进入后期阶段，则直接修改原来的父类或子类的代码，将是一个灾难。因为可能很多地方都用到了这个类，要改的话，可能会改一堆……<br>所以，最好的办法就是使用继承，并在新类中覆盖需要重写的方法。在重写该方法时，可以用super调用父类的方法，在此基础上扩展新功能。以后只需要new新类，就可以调用新的功能。<br>当然，若要覆盖父类的成员方法，需要以下两个条件：</p>
 <ol>
 <li>子类中，该方法的访问权限要大于或等于父类的方法。我们知道java中访问权限有4种：<strong>public、private、protected和default</strong>。上个例子中没有任何修饰符，就是default权限。<strong>default</strong>的访问级别介于public和private之间。若父类中是default权限，子类只能是default、protected或public，不能是private。<code>注意：如果是父类中有个A方法是private修饰的，那么，在子类中就算有一个方法与A方法签名完全相同，也不算方法覆盖，而是子类中的新方法。</code>因为在子类，该方法本身不可见。这里，覆盖的说法没意义。</li>
@@ -385,15 +362,29 @@ class Worker extends Person{
       
         <div class="post-tags">
           
-            <a href="/tags/继承/" rel="tag">#继承</a>
-          
             <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/继承/" rel="tag">#继承</a>
           
             <a href="/tags/final/" rel="tag">#final</a>
           
         </div>
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/16/Java中的抽象类和接口/" rel="prev" title="Java中的抽象类和接口">
+                Java中的抽象类和接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -462,7 +453,7 @@ class Worker extends Person{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -472,7 +463,7 @@ class Worker extends Person{
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

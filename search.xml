@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[.gitignore不起作用的解决方案]]></title>
+      <url>https://FergusChen.github.io/2016/08/18/gitignore%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      <content type="html"><![CDATA[<p>.gitignore文件的作用是让git在版本控制时忽略一些文件，知道哪些文件不需要添加到版本库中，像是jar包、.iml项目文件等等。但有时候发现明明在.gitignore忽略的文件，还会出现在版本库中，.gitignore好像无效了，不起作用！！！ 这里就简单说明一下问题的原因。<br><a id="more"></a>  </p>
+<p>首先说下<strong>.gitignore文件</strong>。虽然使用git可以对任何文件进行版本控制，包括源代码、二进制文件、配置文件、甚至视频等多媒体文件。但是，通常在项目中不需要对某些文件进行版本控制。比如jar文件，有的jar文件甚至有100多兆，而且每次编译都会重新生成，也根本没必要进行版本控制。所以，定义.gitignore文件还是很有必要的。  </p>
+<p>.gitignore文件跟.git在同级目录下，通常在项目的根目录下。在git init初始化时，会生成.git文件夹（隐藏的），<strong>但默认是不会生成.gitignore文件的</strong>。所以，需要手动添加.gitignore文件，然后可以参考这个项目，确定哪些文件可以被忽略：<a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a>  </p>
+<p>出现.gitignore文件无效的原因就是，在git初始化时，忘记添加.gitignore文件了。已经add commit push过了之后，才添加.gitignore文件。<code>.gitignore文件只对还没有加入版本管理的文件起作用，已经添加到版本管理中的文件，.gitignore也不会负责删除。</code>  </p>
+<p>这样的话，只能手动删除缓存中的文件，然后再add、commit、push。运行如下命令：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rm --cached .</div><div class="line">git add .</div><div class="line">git commit -m &quot;gitignore重新配置&quot;</div></pre></td></tr></table></figure>
+<p>之后，.gitignore就起作用了。注意每次修改.gitignore都需要清除缓存啊。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Java中的抽象类和接口]]></title>
+      <url>https://FergusChen.github.io/2016/08/16/Java%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/</url>
+      <content type="html"><![CDATA[<p>写这篇文章，是想从面向对象设计的角度出发，去探讨抽象类和接口。也是对抽象类和接口要点的总结。<br><a id="more"></a></p>
+<h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><p>我们知道，抽象是面向对象的四大特性之一。我们从现实世界的事物中可以抽象出事物的属性和功能。通过分析不同的事物，发现彼此之间可能存在很多不同的关系，比如层次的继承关系、部分与整体强相关的组合关系、部分与整体弱相关的聚合关系等等。其中，将事物的共性（属性和方法）抽取出来，就形成父子继承关系。在这个过程中，有些方法是有默认实现的，就可以在父类中定义方法体（尽管子类可以覆盖）。但有些只知道有此方法，根本不知道子类会如何实现。这时候，抽象类就派上用场了。<code>注意：抽象类描述的仍是继承关系。</code>  </p>
+<p>抽象类用于定义所有子类共同的、但不确定如何实现的成员方法。Java中抽象类的使用有如下要点：</p>
+<ul>
+<li>抽象方法必须定义在抽象类中；</li>
+<li>抽象类和抽象方法都必须被abstract关键字修饰；</li>
+<li>抽象类不能被初始化。解释的话，知乎上的一个回复也很贴切：周星驰的电影中那个去水果店，揪住老板说要一斤水果！老板问他你要什么水果，他说他就要水果！这个水果就是抽象类，你如果能在水果店买到一斤叫水果的水果，那就能实例化一个抽象类。</li>
+<li>抽象类的方法必须在子类中被覆盖才能使用；</li>
+<li>抽象类中既可以有抽象方法，也可以定义具体的成员变量和成员方法。除了具有抽象方法之外，其它的跟普通类一样定义；</li>
+<li>一旦子类继承了某个抽象类，则抽象类中的抽象方法必须在子类中被覆盖；</li>
+<li>若某个类要继承抽象类，同样使用<strong>extends</strong>关键字，而且是单继承。即一个类只能继承一个抽象类。  </li>
+</ul>
+<p>一个抽象类的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    String name;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"my name:"</span> + name);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><p>接口是对外暴露的一系列方法的声明，用于对类进行扩展。接口的本质是一系列规范，<code>在Objective-C中甚至没有接口（Interface），而是叫协议（protocol）</code>。理解这一点，就好像主板上对外提供各种接口，有USB接口、SATA硬盘接口、PCIE接口等。尽管不同的主板可以将接口的颜色换一下，位置换一下。但是各类接口的尺寸、针脚等都是固定的，是早先定义的规范。  </p>
+<p>在面向对象设计中，接口就是预先定义的规范。当定义了一个接口，仅仅说明了此接口能<strong>做什么</strong>，没有定义<strong>如何做</strong>。如果一个类实现此接口，就立刻知道了这个类能<strong>做什么</strong>，至于<strong>如何做</strong>，是在类内部定义的。</p>
+<p>Java中接口用得非常广泛，比如<strong>Comparable接口</strong>定义的规范是：两个对象可以比较。但如何比较取决于对象内部的实现。比较String和Number都不是问题，但比较两个自定义对象时，是按照哪个字段进行比较，就要在类内部实现了。如Student类可以按照姓名比较，也可以按照学号比较等。  </p>
+<p>Java中接口的使用有如下要点：  </p>
+<ul>
+<li>接口是用于对类进行扩展的。若某个类实现了一个接口，就证明该类具有此接口定义的所有方法。</li>
+<li>接口中可以定义两类元素：常量和抽象方法；<code>注意：接口中的方法都是public的。</code></li>
+<li>接口中的常量默认都是public static final的。尽管如此，显式声明可以提高代码可读性；</li>
+<li>接口中的方法默认都是public abstract的，尽量显式声明；</li>
+<li>接口不能被初始化，但可以通过接口名调用接口中的常量；</li>
+<li>java中支持多实现。即一个类可以实现多个接口。</li>
+<li>若某个类要实现接口，使用<strong>implements</strong>关键字。    </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Pocket</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> SIZE = <span class="number">20</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getSome</span><span class="params">()</span></span>;</div><div class="line">    <span class="keyword">int</span> MAX_COUNT = <span class="number">5</span>; <span class="comment">//合法，但不友好，尽量添加public static final修饰</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pubSome</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外，接口也可以被继承，但只能被接口继承，甚至可以在接口之间实现多继承。因为接口中的方法只是声明，而具体的实现是在实现此接口的类中。若两个接口中有签名完全相同的方法，一个类实现了这两个接口，只要将接口中声明的这个方法实现了就行，无所谓这个方法是来自哪个接口。<code>注意，不要在不同的接口定义方法名和参数列表都相同，但返回值不相同的方法，这样的设计很糟糕。</code>  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showA</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">implements</span> <span class="title">B</span></span>&#123;  <span class="comment">//必须实现接口A和接口B的所有方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showA</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showB</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="抽象类和接口的比较"><a href="#抽象类和接口的比较" class="headerlink" title="抽象类和接口的比较"></a>抽象类和接口的比较</h4><p>具体使用要点的比较就不多说了，上面都有。  </p>
+<p>不过，有的人觉得既然抽象类已经可以定义抽象方法，类可以继承并实现此方法。接口也是定义抽象方法的，而且接口还不能定义成员变量和有实现的成员方法，比抽象类的功能还弱。为什么有抽象类了还需要接口呢？就说接口可以多实现，抽象类只能单继承，但如果Java某一天支持多继承了，是不是接口就没有存在的意义了呢？  </p>
+<p>其实，这样的问题只是从两者功能实现的相似性考虑问题了。然而，看到本质，还是面向对象设计思想。抽象类描述的是<strong>继承</strong>的关系，而接口则是对类的扩展，可以描述<strong>聚合</strong>或<strong>组合</strong>的关系。这个是有很大区别的。比如知乎的鱼鱼鱼举的一个例子就很贴切：</p>
+<blockquote>
+<p>苹果和鸡都可以吃，但是苹果是水果，鸡是动物，这个时候可以通过实现 edible 这个接口。所以说，“接口比类带来更多的灵活性”。   </p>
+</blockquote>
+<p>尽管实际开发中很多功能两者都可以实现，但是良好的实现是取决于良好的面向对象设计思想。这一点也很重要。  </p>
+<p>如果对于抽象类和接口比较迷糊，可以到知乎的一个问题上看看，瞬间会清晰很多。<a href="https://www.zhihu.com/question/20111251" target="_blank" rel="external">Java 中的接口有什么作用？</a>   </p>
+<p>若感觉文章中有什么问题，欢迎一起讨论，或者可以帮我指正。非常感谢~</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java中的继承]]></title>
+      <url>https://FergusChen.github.io/2016/08/14/java%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/</url>
+      <content type="html"><![CDATA[<p><strong>继承</strong>是面向对象设计的四大特性之一。从表面上看，继承关系就是“父子”关系。子类可以继承父类非私有的成员变量和成员方法。换句话说，在父类中已经定义的成员变量和成员方法，子类可以直接使用，而不必重新定义。那么，在java中，继承是如何体现的呢？在使用继承关系时，又有哪些要点呢？在这篇文章就简单总结一下。<a id="more"></a>  </p>
+<hr>
+<p>首先说继承。如果仅仅说继承就是“父子”关系，其实不太全面。准确来说，继承描述的是对象之间的<strong> “is a” </strong>关系。 举例来说：学生是一个人；牡丹是一种花；鹦鹉是一种鸟…… 这样的关系简直是太常见了。  </p>
+<p>在java中实现继承可以更清楚地展现类之间的关系，易于维护。这也是面向对象设计的优点。同时，继承可以提高代码的复用性，提高项目的可扩展性等等。<code>注意：一定不能为了复用代码而随便继承。</code>代码实现是基于设计的，没有“is a”关系的类，就不要建立继承关系。</p>
+<hr>
+<p>java中继承用<strong>extends</strong>关键字。子类中可以直接使用父类的成员变量和成员方法，同时也可以重新定义成员变量和成员方法（<em>覆盖</em>）。在子类中，关键字<strong>this</strong>指向当前的类，关键字<strong>super</strong>指向父类。如下：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    String name;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"my name:"</span> + name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">    String university;</div><div class="line">    <span class="comment">//覆盖父类的成员方法</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>.speak();</div><div class="line">        System.out.println(<span class="string">"my university:"</span>+ <span class="keyword">this</span>.university);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"I should study hard, because it's my duty"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worker</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"I should work hard, because it's my duty"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="成员变量的继承"><a href="#成员变量的继承" class="headerlink" title="成员变量的继承"></a>成员变量的继承</h3><p>子类可以继承父类非私有的成员变量，也可以在子类中覆盖父类的成员变量。在子类中，使用this调用子类的成员变量，使用super调用父类的成员变量。  </p>
+<h3 id="成员方法的继承"><a href="#成员方法的继承" class="headerlink" title="成员方法的继承"></a>成员方法的继承</h3><p>子类可以继承父类非私有的成员方法。同时子类可以覆盖父类的成员方法（如上例Student类中是speak方法）。继承中的这个特性让项目更易于扩展。具体来说，就是项目中同样的方法需要有新的实现时（<em>比如：来电显示中以前只显示号码和姓名，现在要添加归属地和头像的显示；播放视频时以前只是单纯地播放，现在要在视频右上角显示当前时间等等。需求变更、添加功能是很常见的</em>）。若项目已经上线，或进入后期阶段，则直接修改原来的父类或子类的代码，将是一个灾难。因为可能很多地方都用到了这个类，要改的话，可能会改一堆……<br>所以，最好的办法就是使用继承，并在新类中覆盖需要重写的方法。在重写该方法时，可以用super调用父类的方法，在此基础上扩展新功能。以后只需要new新类，就可以调用新的功能。<br>当然，若要覆盖父类的成员方法，需要以下两个条件：</p>
+<ol>
+<li>子类中，该方法的访问权限要大于或等于父类的方法。我们知道java中访问权限有4种：<strong>public、private、protected和default</strong>。上个例子中没有任何修饰符，就是default权限。<strong>default</strong>的访问级别介于public和private之间。若父类中是default权限，子类只能是default、protected或public，不能是private。<code>注意：如果是父类中有个A方法是private修饰的，那么，在子类中就算有一个方法与A方法签名完全相同，也不算方法覆盖，而是子类中的新方法。</code>因为在子类，该方法本身不可见。这里，覆盖的说法没意义。</li>
+<li>静态方法只能覆盖静态方法，不能覆盖非静态方法。因为静态和非静态的加载时机不一样，存储位置也不一样。静态的成员变量和成员方法都是类加载的时候就加载进入内存，而非静态是创建对象时加载。  </li>
+</ol>
+<h3 id="继承中的构造方法"><a href="#继承中的构造方法" class="headerlink" title="继承中的构造方法"></a>继承中的构造方法</h3><p>构造方法和类同名，当然没有继承的说法。但是，在继承中，构造方法的调用时机需要说明一下。<br><strong>子类的所有构造方法，都会先执行父类的默认构造方法，然后才执行子类构造方法中的其它语句。</strong>也就是说，在子类的构造方法中都会隐式地插入这样一句代码：<code>super();</code>（子类构造方法中先用<code>this()</code>调用其它构造方法的除外，因为在<code>this()</code>中已经调用了父类的构造方法）<br>因为在子类其实包含父类的成员变量，但这些成员变量的初始化是在父类中定义的。因此，初始化子类时一定要先调用父类的构造方法初始化这些成员变量。<br>当然，子类的构造方法中也可以手动指定调用父类的哪个构造方法，但一定要先调用父类的构造方法。</p>
+<h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>说了这么多，继承的确有很多好处，但是继承却破坏了对象的封装性。在java中，为了解决这个问题，可以使用final关键字。<br>final关键字可以修饰类、变量、方法等，只要被final修饰，就不能再被修改。具体来说，final修饰的类不能被继承；final修饰的方法不能被覆盖；final修饰的变量就是一个常量了。<strong>ps：</strong>可以在类中定义全局静态常量，用类名就可以直接访问，如下：<code>public static final double PI = 3.14159;</code></p>
+<p>好了，先记这些吧，以后有新的见解再补上。</p>
+<p>若文章中有问题，欢迎指正。</p>
+]]></content>
+    </entry>
+    
+  
+  
+</search>

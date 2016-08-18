@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://FergusChen.github.io/2016/08/18/gitignore%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2016-08-18T02:19:05.810Z</lastmod>
+    <data>
+        <display>
+        <title>.gitignore不起作用的解决方案</title>
+        <pubTime>2016-08-18T02:15:50.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+        <tag>.gitignore</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://FergusChen.github.io/2016/08/14/java%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/</loc>
+    <lastmod>2016-08-16T09:45:03.243Z</lastmod>
+    <data>
+        <display>
+        <title>java中的继承</title>
+        <pubTime>2016-08-14T11:54:29.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>继承</tag>
+         
+        <tag>final</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://FergusChen.github.io/2016/08/16/Java%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/</loc>
+    <lastmod>2016-08-16T09:43:36.318Z</lastmod>
+    <data>
+        <display>
+        <title>Java中的抽象类和接口</title>
+        <pubTime>2016-08-16T09:35:55.000Z</pubTime>
+        
+        <tag>抽象类</tag>
+         
+        <tag>接口</tag>
+         
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+</urlset>

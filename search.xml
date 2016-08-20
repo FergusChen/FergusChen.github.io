@@ -49,6 +49,43 @@
     </entry>
     
     <entry>
+      <title><![CDATA[编程中的时区和时间]]></title>
+      <url>https://FergusChen.github.io/2016/08/17/%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%97%B6%E5%8C%BA%E5%92%8C%E6%97%B6%E9%97%B4/</url>
+      <content type="html"><![CDATA[<p>在开发过程中常常会碰到时区的问题。有时候明明要获取当前时间，但结果却倒流了8个小时。在打印时间时，也会出现UTC、GMT等后缀。这些关键字都代表什么意思？在开发中应该怎么处理呢？这里就做一个简要的总结。<br><a id="more"></a>  </p>
+<p>我想从时区的简要介绍开始，讨论一下我所遇到过的时区处理问题。<br>由于地球的自转周期是24小时，人们就将地球按经度划分为24个时区。这样，以英国伦敦格林威治天文台的经线（本初子午线）为零时区中心线，向东向西各12个时区。每个时区15度（360/24），这样相邻两个时区的时区中心线就正好相差1个小时。北京位于东八区，地球自西向东自转，北京就比伦敦早8个小时。换句话说，北京的中午12点，伦敦还是凌晨4点。注：有时候北京比伦敦早7个小时，是因为伦敦施行日光节约时制（DST）具体可以google。<br><img src="http://oc5u7idl7.bkt.clouddn.com/timezone.gif" alt="时区图">  </p>
+<p><strong>GMT</strong>：Greenwich Mean Time，即格林威治标准时间，又叫世界时。GMT是以地球自转为基础的时间计量系统。该系统源自于十七世纪成立的英国格林威治皇家天文台，其观测所门口墙上有一个标志24小时的时钟，天文学观测将每日太阳穿过本初子午线的瞬间定为正午时刻。此后，全世界都以GMT时间作为标准时间参考点，根据时区差可以方便地计算当地时间（有时候看到GMT + 8就是这样换算）。但是，因为地球在椭圆轨道运行，其自转是不规则的，所以，GMT时间可能与实际的太阳时会有偏差。所以，从1924年，格林威治天文台每隔1个小时就向全世界发放调时信息。直到后来，有UTC的存在，GMT时间就不再作为世界标准时间。  </p>
+<p><strong>UTC</strong>：Coordinated Universal Time，即协调世界时间，又叫世界标准时间。是以原子时秒长为基础的时间度量系统。UTC在时间上尽量接近于世界时（GMT），其计算过程非常严谨精密。并且UTC时间的精确度高，每日保持与世界时不超过0.9秒的误差。若因为地球自转不均匀而导致原子时和世界时误差变大时，UTC就通过加上正或负的闰秒来补偿，这个由位于巴黎的国际地球自转事务中央局负责。目前，UTC已经作为万维网的标准，广泛应用于计算机系统中了。  </p>
+<p>还有很多时间标准，像是DST、原子时、太阳时、恒星时等，这里就不多讨论了。就是GMT、UTC，若要展开介绍其计算方法、发展历程、应用范围等，内容还是非常多的。但作为程序员，不搞天文地理，没必要太深入。还是简单了解一下，然后就开始应用吧。<br>ps：综上所述，若不追求太精确，GMT和UTC时间是一样的。但实际应用中都有时区的问题。  </p>
+<hr>
+<p>下面分别从iOS、pig、oozie中总结一下date类型关于时区的处理。  </p>
+<h4 id="iOS中的时区问题"><a href="#iOS中的时区问题" class="headerlink" title="iOS中的时区问题"></a>iOS中的时区问题</h4><p>在iOS中，从iOS4.1开始，<code>[NSDate date]</code>方法获取的当前时间是0时区的时间，即比北京时间晚8个小时(倒流8个小时，原本北京时间是20:00，但0时区是12:00)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">NSDate *date1 = [NSDate date];</div><div class="line">NSString *date2Str = @&quot;2016-08-17 20:15&quot;;</div><div class="line">NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];</div><div class="line">[dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];</div><div class="line">NSDate *date2 = [dateFormatter dateFromString:date2Str];</div><div class="line"></div><div class="line">NSLog(@&quot;date1:%@&quot;, [dateFormatter stringFromDate:date1]);</div><div class="line">NSLog(@&quot;date2:%@&quot;, [dateFormatter stringFromDate:date2]);</div></pre></td></tr></table></figure></p>
+<p>比如当前时间是20:15，则在第date1代码处打断点，查看到时间如下:<br><img src="http://oc5u7idl7.bkt.clouddn.com/date1.png" alt="date1">  </p>
+<p>然而，用NSDateFormatter对象转换成字符串，打印出来的时间却是当前时间:<br><img src="http://oc5u7idl7.bkt.clouddn.com/date1Formatter.png" alt="date1Log">    </p>
+<p>所以，在iOS中，NSDateFormatter对象在对时间格式化的时候，已经处理了时区问题。具体来说，NSDateFormatter是将NSDate的0时区处理成当前时区，然后才转化成时间字符串。反过来，如果有一个时间字符串，要通过NSDateFormatter转换成NSDate类型，那么NSDateFormatter也会把时间处理成0时区的时间，如下图:<br><img src="http://oc5u7idl7.bkt.clouddn.com/date2.png" alt="date2">  </p>
+<p>可见，在iOS中，时区问题被NSDateFormatter对象隐藏了.若不涉及到日历、本地通知等操作，程序员也不需要考虑时区。但是，并不是所有的NSDate都是用NSDateFormatter来处理的。可能遇到意想不到的两个时区的时间比较。这样如果要把其中一个时间修改为当前时区的时间，则可以用如下方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSDate *)currentLocalDate&#123;</div><div class="line">    NSDate *date = [NSDate date];</div><div class="line">    NSTimeZone *zone = [NSTimeZone systemTimeZone];</div><div class="line">    NSInteger interval = [zone secondsFromGMTForDate:date];</div><div class="line">    NSDate *localDate = [date dateByAddingTimeInterval:interval];</div><div class="line">    return localDate;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="pig中的时区问题"><a href="#pig中的时区问题" class="headerlink" title="pig中的时区问题"></a>pig中的时区问题</h4><p>在pig抽取数据的时候，记得一次使用<code>value.fields.data#&#39;timestamp&#39; as timestamp:long</code>,获取日志中的时间，然后用<code>UnixToISO(timestamp) as ISOTime</code>进行时间戳的转换，发现得到的结果有很多发生在凌晨2点到5点。后来发现是时区的问题，本身日志应该是在上午10点、11点的。这个目前还不太清楚是什么原因，可能也是环境搭建的问题，回头有精力再深究吧。如果哪位高手知道原因，希望能交流一下，不胜感激。  </p>
+<h4 id="oozie的时区问题"><a href="#oozie的时区问题" class="headerlink" title="oozie的时区问题"></a>oozie的时区问题</h4><p>在oozie启动定时任务的时候，时区问题就更加重要了。但是oozie的时区问题比较棘手，也不知道是因为环境搭建的问题，还是其它原因，我在部署oozie任务时，还要考虑8个小时的时差。（感觉环境搭建好麻烦啊，深刻理解运维人员的辛苦……）  </p>
+<p>因此，在coordinator中，打算7月26日凌晨4点跑的任务，在<code>coordinator-app</code>的<code>start</code>属性就要设置成<code>2016-07-25T20:00Z</code>，如果本身就是处理头一天的数据（即7月25日），并且输出结果的路径按日期进行拼接，则在<code>coordinator.xml</code>的<code>action</code>中就可以指定<code>workflow.xml</code>的路径，同时把日期以变量的形式传入<code>workflow.xml</code>，具体如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">action</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">workflow</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">app-path</span>&gt;</span>$&#123;wf_app_path&#125;<span class="tag">&lt;/<span class="name">app-path</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">name</span>&gt;</span>analysisDate<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;coord:formatTime(coord:nominalTime(),'yyyy-MM-dd')&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">workflow</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>很多时候，因为时区问题会让处理变得比较麻烦，需要灵活使用oozie的EL常量。如下：<br><code>&lt;value&gt;${coord:formatTime(coord:dateOffset(coord:nominalTime(), -1, &#39;DAY&#39;), &#39;yyyy-MM-dd&#39;)}&lt;/value&gt;</code></p>
+<h4 id="XML-Schema日期时间"><a href="#XML-Schema日期时间" class="headerlink" title="XML Schema日期时间"></a>XML Schema日期时间</h4><p>有时候经常看到打印的结果是这种格式：<code>2002-05-30T09:30:10Z</code>， 有日期，有时间没问题。那么其中的<strong>T</strong>和<strong>Z</strong>代表什么含义呢？<br>这其实是标准XML Schema的日期时间数据格式。其具体的格式是这样的：<br><code>&quot;YYYY-MM-DDThh:mm:ss&quot;</code> </p>
+<ul>
+<li><code>YYYY</code> 表示年份</li>
+<li><code>MM</code> 表示月份</li>
+<li><code>DD</code> 表示日</li>
+<li><code>T</code> 表示必需的时间部分的起始</li>
+<li><code>hh</code> 表示小时</li>
+<li><code>mm</code> 表示分钟</li>
+<li><code>ss</code> 表示秒  </li>
+</ul>
+<p>比如：<code>&lt;startdate&gt;2002-05-30T09:00:00&lt;/startdate&gt;</code><br>在日期或时间的结果加<strong>Z</strong>表示时区<code>(TimeZone)</code>，如果单纯一个Z，表示使用世界协调时间(UTC)，默认的是0时区。当然，也可以通过在时间后添加一个正的或负时间的方法，来规定以世界调整时间为准的偏移量。比如这样：<br><code>&lt;start&gt;09:30:10+06:00&lt;/start&gt;</code><br><code>&lt;start&gt;09:30:10-06:00&lt;/start&gt;</code></p>
+<p>先写到这里吧，有更多实践的时候再补充。  </p>
+<blockquote>
+<p>如果本文有出于我个人理解或表达的错误，还望指正。<br>如果本文有涉及到版权、知识产权的问题，请及时与我联系。</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Java中的抽象类和接口]]></title>
       <url>https://FergusChen.github.io/2016/08/16/Java%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/</url>
       <content type="html"><![CDATA[<p>写这篇文章，是想从面向对象设计的角度出发，去探讨抽象类和接口。也是对抽象类和接口要点的总结。<br><a id="more"></a></p>

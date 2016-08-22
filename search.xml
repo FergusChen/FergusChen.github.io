@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title><![CDATA[Scala中的Option、None、Nothing、Null和Nil]]></title>
+      <url>https://FergusChen.github.io/2016/08/22/Scala%E4%B8%AD%E7%9A%84Option%E3%80%81None%E3%80%81Nothing%E3%80%81Null%E5%92%8CNil/</url>
+      <content type="html"><![CDATA[<p>在Scala中有几个容易混淆的类型，像是None、Nothing、Null、Nil等。在实际编程中又经常会遇到。要有一个清楚区分，这边文章就简单做个总结。<br><a id="more"></a>  </p>
+<p>首先可以参考一下scala的继承层次树：<br><img src="http://oc5u7idl7.bkt.clouddn.com/scala%E7%BB%A7%E6%89%BF%E5%B1%82%E6%AC%A1.png" alt="scala中的Null" title="scala继承层次树"></p>
+<p>可以看到，在Scala中，所有类型的父类是Any，其声明了isInstanceOf、asInstanceOf、equal、hashCode、toString等方法。<br><strong>Any</strong>有两个直接子类：AnyVal和AnyRef。<br><strong>AnyVal</strong>是所有值类型的父类，没有追加任何方法，只是所有值类型的一个标记。<br><strong>AnyRef</strong>是所有引用类型的父类，追加了来自Object类的wait、notify等监听方法。<br>所有Scala类都实现了ScalaObject这个标记接口，该接口只是一个标记，没有定义任何方法。  </p>
+<p>在这个继承层次树中的底端，有两个特殊的类型：Null和Nothing<br><strong>Null</strong>只有一个实例，就是null值。我们可以将null赋值给任何引用类型，但不能赋值给值类型。<br><strong>Nothing</strong>是任意类型的子类。Nothing类没有实例，但可以表示任意类型。所以经常用于泛型结构，如空列表Nil的类型就是List[Nothing]，它是List[T]的子类型，T可以是任何类。</p>
+<p>接下来对其它的几个类型做说明：</p>
+<p><strong>Unit</strong>类型相当于java中的void，其只有一个值，就是()。Unit只是AnyVal的子类，但编译器允许任何值被替换成()</p>
+<p><strong>None</strong>类型是Option类的子类，代表不存在的值（non-existent）  </p>
+<p><strong>Some[A]</strong> 类型也是Option类的子类，代表类型A存在的值。</p>
+<p><strong>Option</strong>代表一个可选的值。既可以是Some[A]的一个实例，也可以是None，即不存在。scala推荐在可能返回空对象的函数中，声明返回值为Option[A]。Option类型中也提供isEmpty，get，getOrElse等方法来操作和判断。</p>
+<p><strong>Nil</strong>是一个空的List，其相当于List[Nothing]。  </p>
+<blockquote>
+<p>如果本文有出于我个人理解或表达的错误，还望指正。<br>如果本文有涉及到版权、知识产权的问题，请及时与我联系。</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[在线广告的发展过程]]></title>
       <url>https://FergusChen.github.io/2016/08/19/%E5%9C%A8%E7%BA%BF%E5%B9%BF%E5%91%8A%E7%9A%84%E5%8F%91%E5%B1%95%E8%BF%87%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p>　计算广告已经成为当下十分热门的话题。但是，要 真正了解计算广告，仅仅从一些计算公式、业务规则等入手，还是很受局限的。因为广告行业对我们来说都不陌生，而在线广告也从传统的合约广告到定向广告，再到现在的竞价广告，经历了多次变革，每一步都在广告效果、广告收益等方面有很大的革新。因此，要了解计算广告，最好的办法就是了解整个在线广告的发展历程。下面就从广告的定义入手，简要介绍在线广告的发展过程。<br><a id="more"></a></p>

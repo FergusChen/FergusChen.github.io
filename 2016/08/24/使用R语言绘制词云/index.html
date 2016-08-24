@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="R语言,可视化,词云," />
 
 
 
@@ -84,15 +84,20 @@
 
 
 
-<meta name="description" content="You will know the truth, and the truth will set you free (John 8:32).">
-<meta property="og:type" content="website">
-<meta property="og:title" content="城造在山上">
-<meta property="og:url" content="https://FergusChen.github.io/tags/GMT/index.html">
+<meta name="description" content="R语言不仅有丰富的包可以用于数据统计分析，而且可以对数据进行可视化。这边文章主要介绍下如何用R语言绘制词云。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用R语言绘制词云">
+<meta property="og:url" content="https://FergusChen.github.io/2016/08/24/使用R语言绘制词云/index.html">
 <meta property="og:site_name" content="城造在山上">
-<meta property="og:description" content="You will know the truth, and the truth will set you free (John 8:32).">
+<meta property="og:description" content="R语言不仅有丰富的包可以用于数据统计分析，而且可以对数据进行可视化。这边文章主要介绍下如何用R语言绘制词云。">
+<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/words.png">
+<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/cloud2.png">
+<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/cloud1.png">
+<meta property="og:updated_time" content="2016-08-24T13:04:32.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="城造在山上">
-<meta name="twitter:description" content="You will know the truth, and the truth will set you free (John 8:32).">
+<meta name="twitter:title" content="使用R语言绘制词云">
+<meta name="twitter:description" content="R语言不仅有丰富的包可以用于数据统计分析，而且可以对数据进行可视化。这边文章主要介绍下如何用R语言绘制词云。">
+<meta name="twitter:image" content="http://oc5u7idl7.bkt.clouddn.com/words.png">
 
 
 
@@ -113,9 +118,9 @@
 
 
 
-  <link rel="canonical" href="https://FergusChen.github.io/tags/GMT/"/>
+  <link rel="canonical" href="https://FergusChen.github.io/2016/08/24/使用R语言绘制词云/"/>
 
-  <title> 标签: GMT | 城造在山上 </title>
+  <title> 使用R语言绘制词云 | 城造在山上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +151,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -254,46 +259,150 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        GMT
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用R语言绘制词云
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-24T21:03:50+08:00" content="2016-08-24">
+              2016-08-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/24/使用R语言绘制词云/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/使用R语言绘制词云/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>R语言不仅有丰富的包可以用于数据统计分析，而且可以对数据进行可视化。这边文章主要介绍下如何用R语言绘制词云。<br><a id="more"></a>  </p>
+<blockquote>
+<p>工具：  </p>
+<ul>
+<li>R语言IDE  </li>
+<li>ggplot2包  </li>
+<li>wordcloud包  </li>
+</ul>
+</blockquote>
+<p>因为绘制词云需要用到ggplot2包和wordcloud包。所以，可以在R studio输入如下命令，需要选择mirror：  </p>
+<pre><code>chooseCRANmirror()
+</code></pre><p>之后，就可以在这个镜像中安装需要的作图包：  </p>
+<pre><code>install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;wordcloud&quot;)
+</code></pre><p>绘制词云需要的数据格式就是“词语\t权重”，我们可以将每个topic的词语放在一个文本文档中，有多少个topic就绘制多少张词云图。<br>如下是一个topic的词语：  </p>
+<p><img src="http://oc5u7idl7.bkt.clouddn.com/words.png" alt="旅游景点">  </p>
+<p>如下代码便用于生成词云。其中，path为所有topic的文本文档所在路径。topicNum为topic的个数。接下来就是调用作图包进行绘制，其中字体，大小都可以设定，但是其它很多字体绘制出来的词云会出现词语重叠的现象，很奇怪，目前我也不知道什么原因。希望哪位前辈能指教一下，不胜感激。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">path &lt;- &quot;D:/workspace/wordcloud/cloud0/&quot;</div><div class="line">topicNum &lt;- 2 </div><div class="line"></div><div class="line">for (i in seq(0,topicNum-1,1))&#123;</div><div class="line">    infile &lt;- paste(path, i, &quot;.txt&quot;, sep=&quot;&quot;)</div><div class="line">    outfig1 &lt;- paste(path, &quot;distribution_&quot;, i, &quot;.png&quot;, sep=&quot;&quot;)</div><div class="line">    outfig2 &lt;- paste(path, &quot;topic_&quot;, i, &quot;.png&quot;, sep=&quot;&quot;)</div><div class="line"></div><div class="line">    data &lt;- read.table(infile, fileEncoding = &quot;UTF-8&quot;, header=TRUE, sep=&quot;\t&quot;)</div><div class="line">    data0 = data.frame(word=data$tag, freq=data$point)</div><div class="line">    data1=cbind(data0, order=order(data0$freq,decreasing=TRUE))</div><div class="line"></div><div class="line">    ##分布图</div><div class="line">    png(file=outfig1, bg=&quot;transparent&quot;)</div><div class="line">        library(ggplot2)</div><div class="line">        qplot(freq, data=data1, geom=&quot;histogram&quot;, binwidth=1) </div><div class="line">        #d=ggplot(data1, aes(x=freq))+xlim(0,0.00005)</div><div class="line">        #d+geom_freqpoly()</div><div class="line">    dev.off()</div><div class="line"></div><div class="line">    ##词云</div><div class="line">    png(file=outfig2, bg=&quot;transparent&quot;)    </div><div class="line">        #设置一个颜色系：</div><div class="line">        library(RColorBrewer)</div><div class="line">        col=brewer.pal(8, &quot;Dark2&quot;)</div><div class="line">        #设置字体</div><div class="line">        windowsFonts(myFont=windowsFont(&quot;微软雅黑&quot;))</div><div class="line">        #画图</div><div class="line">        library(wordcloud)</div><div class="line">        wordcloud(data1$word, data1$freq, random.order=FALSE, random.color=FALSE, colors=col, family=&quot;myFont&quot;, min.freq=0.1)</div><div class="line">        ###可以先排序限制TOPN入画，也可以直接在函数上加min.freq=0.00001，限制TopN入画</div><div class="line">    dev.off()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后，绘制得到的结果示例：<br><img src="http://oc5u7idl7.bkt.clouddn.com/cloud2.png" alt="旅游">　　　<img src="http://oc5u7idl7.bkt.clouddn.com/cloud1.png" alt="专业"></p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/08/17/编程中的时区和时间/" itemprop="url">
-              
-                <span itemprop="name">编程中的时区和时间</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-17T22:11:40+08:00"
-              content="2016-08-17" >
-          08-17
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag">#R语言</a>
+          
+            <a href="/tags/可视化/" rel="tag">#可视化</a>
+          
+            <a href="/tags/词云/" rel="tag">#词云</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/22/Scala中的Option、None、Nothing、Null和Nil/" rel="next" title="Scala中的Option、None、Nothing、Null和Nil">
+                <i class="fa fa-chevron-left"></i> Scala中的Option、None、Nothing、Null和Nil
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -301,6 +410,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/24/使用R语言绘制词云/"
+           data-title="使用R语言绘制词云" data-url="https://FergusChen.github.io/2016/08/24/使用R语言绘制词云/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -320,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -364,6 +490,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -480,6 +617,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

@@ -1,0 +1,851 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,单链表,算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="单链表的数据结构非常简单，但是基于单链表的一些算法却特别有意思。这里对各个算法的思路、要点、java实现、测试做一个简单的总结，具体如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单链表算法的java实现">
+<meta property="og:url" content="https://FergusChen.github.io/2016/08/25/单链表算法的java实现/index.html">
+<meta property="og:site_name" content="城造在山上">
+<meta property="og:description" content="单链表的数据结构非常简单，但是基于单链表的一些算法却特别有意思。这里对各个算法的思路、要点、java实现、测试做一个简单的总结，具体如下：">
+<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/linkList/linknode.bmp">
+<meta property="og:updated_time" content="2016-08-25T13:58:19.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单链表算法的java实现">
+<meta name="twitter:description" content="单链表的数据结构非常简单，但是基于单链表的一些算法却特别有意思。这里对各个算法的思路、要点、java实现、测试做一个简单的总结，具体如下：">
+<meta name="twitter:image" content="http://oc5u7idl7.bkt.clouddn.com/linkList/linknode.bmp">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://FergusChen.github.io/2016/08/25/单链表算法的java实现/"/>
+
+  <title> 单链表算法的java实现 | 城造在山上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6774c5569b47c79abae31ab5e3ff0826";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">城造在山上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Sharing Knowledge, to make you work better. Sharing Thuth, to make you more perfect.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'GLrwfsyHx9NG4VVSmA9m','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                单链表算法的java实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-25T21:57:36+08:00" content="2016-08-25">
+              2016-08-25
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/25/单链表算法的java实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/单链表算法的java实现/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>单链表的数据结构非常简单，但是基于单链表的一些算法却特别有意思。这里对各个算法的思路、要点、java实现、测试做一个简单的总结，具体如下：<br><a id="more"></a>  </p>
+<ul>
+<li>单链表的倒序输出</li>
+<li>查到单链表倒数第k个元素</li>
+<li>获取单链表的中间元素</li>
+<li>两个有序单链表合并</li>
+<li>判断两个单链表是否相交</li>
+<li>获取两个单链表相交的结点</li>
+<li>判断单链表是否有环</li>
+<li>判断有环单链表中，环的长度</li>
+<li>获取单链表中，环的起始结点</li>
+<li>删除单链表中指定结点  </li>
+</ul>
+<hr>
+<h4 id="单链表的数据结构"><a href="#单链表的数据结构" class="headerlink" title="单链表的数据结构"></a>单链表的数据结构</h4><p>首先，定义单链表的数据结构。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> data; <span class="comment">//数据域</span></div><div class="line">    <span class="keyword">public</span> Node next; <span class="comment">//指针域</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> data)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.data = data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="单链表的倒序输出"><a href="#单链表的倒序输出" class="headerlink" title="单链表的倒序输出"></a>单链表的倒序输出</h4><p>单链表的倒序输出即从链表表尾逐个输出到表头。因为单链表的指针域是单向的，所以要找到表尾的话，需要遍历整个链表。<br>这个算法可以有两种实现：1、迭代实现，2、递归实现。  </p>
+<h5 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h5><p>迭代实现关键是考虑倒序输出正好符合栈的先进后出的特点——先遍历到的元素最后输出。这样，可以遍历一遍，将数据存储在栈中，然后由栈逐个pop即可。下面是用迭代实现代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* -------单链表的倒序输出-------</div><div class="line">* test (null), (d1)</div><div class="line">* <span class="doctag">@param</span> head 待倒序输出的链表</div><div class="line">*</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printListReversingly_Iterattively</span><span class="params">(Node head)</span> </span>&#123;</div><div class="line">    Stack&lt;Integer&gt; nodes = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">        Node pNode = head;</div><div class="line">    <span class="keyword">while</span> (pNode != <span class="keyword">null</span>) &#123;</div><div class="line">        nodes.push(pNode.data);</div><div class="line">        pNode = pNode.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (!nodes.isEmpty()) &#123;</div><div class="line">        System.out.print(nodes.pop() + <span class="string">", "</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h5><p>递归实现即递归地往下找，直到找到最后一个元素，再回溯输出即可。但是，递归实现有个很大的缺陷，就是<strong>当链表元素特别多的时候，递归层次太深，容易造成栈溢出。</strong> 。下面是递归实现代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* -------单向链表的倒序输出-------</div><div class="line">* <span class="doctag">@param</span> head 待倒序输出的链表</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printListReversingly_Recursively</span><span class="params">(Node head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (head.next != <span class="keyword">null</span>) &#123;</div><div class="line">            printListReversingly_Recursively(head.next);</div><div class="line">        &#125;</div><div class="line">        System.out.print(head.data + <span class="string">", "</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="查找单链表倒数第k个元素"><a href="#查找单链表倒数第k个元素" class="headerlink" title="查找单链表倒数第k个元素"></a>查找单链表倒数第k个元素</h4><p>查找单链表中倒数第k个元素，仍然有两种实现：1、通过获取链表的长度实现。2、通过两个指针实现。</p>
+<h5 id="通过获取链表的长度的实现"><a href="#通过获取链表的长度的实现" class="headerlink" title="通过获取链表的长度的实现"></a>通过获取链表的长度的实现</h5><p>第1次遍历，得到链表长度 length。然后第2次遍历，找到第length-k个元素就是了。这种方法效率较低。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 查找单链表倒数第k个元素</div><div class="line"> * test: (null, 2), (p1, 2), (p1, 200), (p1, 0)</div><div class="line"> * <span class="doctag">@param</span> head 待查找的链表</div><div class="line"> * <span class="doctag">@param</span> k 倒数第k个元素</div><div class="line"> * <span class="doctag">@return</span> Node 返回倒数第k个结点。若k=0或链表为null，则返回null，若k大于链表长度，则抛RuntimeException异常</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getReKthNode1</span><span class="params">(Node head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || k == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">    Node cur = head;</div><div class="line">    <span class="keyword">while</span> (cur != <span class="keyword">null</span>) &#123;</div><div class="line">        cur = cur.next;</div><div class="line">        ++length;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//这里做一步异常处理</span></div><div class="line">    <span class="keyword">if</span> (k &gt; length) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"exceed length of linklist"</span>);</div><div class="line">    &#125;</div><div class="line">    cur = head;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length - k; i++) &#123;</div><div class="line">        cur = cur.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> cur;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="通过两个指针实现"><a href="#通过两个指针实现" class="headerlink" title="通过两个指针实现"></a>通过两个指针实现</h5><p>如果不允许遍历整个链表，或者要提高效率，就采用这种思路：</p>
+<ul>
+<li>定义两个指针，pFront先指向第k个元素，pBack指向链表的head</li>
+<li>两个指针同时移动遍历，当pFront遍历到链表尾部之后，pBack正好是指向倒数第k个元素。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 查到单链表倒数第k个元素</div><div class="line"> * test: (null, 2), (p1, 2), (p1, 200), (p1, 0)</div><div class="line"> * <span class="doctag">@param</span> head 待查找的结点</div><div class="line"> * <span class="doctag">@param</span> k 倒数第k个元素</div><div class="line"> * <span class="doctag">@return</span> Node 返回倒数第k个结点 ， 若k=0或链表为null，则返回null，若k大于链表长度，则抛RuntimeException异常</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getReKthNode2</span><span class="params">(Node head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || k == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    Node pFront = head; </div><div class="line">    Node pBack = head;</div><div class="line">    <span class="keyword">while</span> (k &gt; <span class="number">1</span> &amp;&amp; pFront != <span class="keyword">null</span>) &#123; <span class="comment">//从1开始数第k个数。</span></div><div class="line">        pFront = pFront.next;</div><div class="line">        --k;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (pFront == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"exceed length of linklist"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (pFront.next != <span class="keyword">null</span>) &#123;</div><div class="line">        pBack = pBack.next;</div><div class="line">        pFront = pFront.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pBack;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="获取单链表的中间元素"><a href="#获取单链表的中间元素" class="headerlink" title="获取单链表的中间元素"></a>获取单链表的中间元素</h4><p>思路：仍然是两个指针，只是pFront一次走2步，pBack一次走1步。直到pFront走到最后一个结点。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取单链表的中间元素。</div><div class="line"> * test： （null）, (奇数个)， （偶数个）， （1个元素）</div><div class="line"> * <span class="doctag">@param</span> head 待查找的链表</div><div class="line"> * <span class="doctag">@return</span> Node 链表的中间结点。 若链表为null，则返回null</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getMiddleNode</span><span class="params">(Node head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) <span class="keyword">return</span> head;</div><div class="line"></div><div class="line">    Node pFront = head;</div><div class="line">    Node pBack = head;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (!(pFront.next == <span class="keyword">null</span> || pFront.next.next == <span class="keyword">null</span>)) &#123;</div><div class="line">        pFront = pFront.next.next;</div><div class="line">        pBack = pBack.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pBack;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="两个有序单链表合并"><a href="#两个有序单链表合并" class="headerlink" title="两个有序单链表合并"></a>两个有序单链表合并</h4><p>两个单链表head1和head2都各自有序，要求将其合并，得到的结果依然有序。。此问题仍然有两种实现：1、归并排序的思想合并； 2、递归合并</p>
+<h5 id="归并排序的思想合并"><a href="#归并排序的思想合并" class="headerlink" title="归并排序的思想合并"></a>归并排序的思想合并</h5><p><strong>思想</strong>：用归并排序merge方法的思想。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 两个有序单链表合并</div><div class="line"> * test： (null, null), (null, head2), (head1, null), (head1,head2) </div><div class="line"> * <span class="doctag">@param</span> head1 第1个有序链表</div><div class="line"> * <span class="doctag">@param</span> head2 第2个有序链表</div><div class="line"> * <span class="doctag">@return</span> Node 归并之后的结果链表 若两个链表都为null，则返回null</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">mergeSortedLinklist1</span><span class="params">(Node head1, Node head2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head1 == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> head2;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (head2 == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> head1;</div><div class="line">    &#125;</div><div class="line">    Node mergeHead = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (head1.data &lt;= head2.data) &#123;</div><div class="line">        mergeHead = head1;</div><div class="line">        head1 = head1.next;</div><div class="line">        mergeHead.next = <span class="keyword">null</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        mergeHead = head2;</div><div class="line">        head2 = head2.next;  <span class="comment">//注意链表的指针指向，这里的顺序不能错了。只有head指向下一个元素之后，mergeHead的next才能断开</span></div><div class="line">        mergeHead.next = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    Node mergeCur = mergeHead;</div><div class="line">    <span class="keyword">while</span> (head1 != <span class="keyword">null</span> &amp;&amp; head2 != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (head1.data &lt;= head2.data) &#123;</div><div class="line">            mergeCur.next = head1;</div><div class="line">            head1 = head1.next;</div><div class="line">            mergeCur = mergeCur.next;</div><div class="line">            mergeCur.next = <span class="keyword">null</span>; <span class="comment">//使merge结果与原head1后面的元素断开。</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mergeCur.next = head2;</div><div class="line">            head2 = head2.next;</div><div class="line">            mergeCur = mergeCur.next;</div><div class="line">            mergeCur.next = <span class="keyword">null</span>; <span class="comment">//使merge结果与原head2后面的元素断开。</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (head1 != <span class="keyword">null</span>) &#123;</div><div class="line">        mergeCur.next = head1;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (head2 != <span class="keyword">null</span>) &#123;</div><div class="line">        mergeCur.next = head2;</div><div class="line">    &#125;</div><div class="line">        <span class="keyword">return</span> mergeHead;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="递归合并"><a href="#递归合并" class="headerlink" title="递归合并"></a>递归合并</h5><p>用递归的方法代码更简洁，也可读性也很强。但是，两个链表比较长的时候，递归层次也可能会很深，结果造成<strong>栈溢出</strong>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 两个有序单链表合并</div><div class="line"> * <span class="doctag">@param</span> head1 第1个有序链表</div><div class="line"> * <span class="doctag">@param</span> head2 第2个有序链表</div><div class="line"> * <span class="doctag">@return</span> Node 归并之后的结果链表 ，若两个链表都为null，则返回null</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">mergeSortedLinklist2</span><span class="params">(Node head1, Node head2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head1 == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> head2;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (head2 == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> head1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Node mergeHead = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (head1.data &lt;= head2.data) &#123;</div><div class="line">        mergeHead = head1;</div><div class="line">        mergeHead.next = mergeSortedLinklist2(head1.next, head2);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        mergeHead = head2;</div><div class="line">        mergeHead.next = mergeSortedLinklist2(head1, head2.next);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> mergeHead;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="判断两个单链表是否相交"><a href="#判断两个单链表是否相交" class="headerlink" title="判断两个单链表是否相交"></a>判断两个单链表是否相交</h4><p>如果两个链表相交于某一节点，那么在这个相交节点之后的所有节点都是两个链表所共有的。相当于“Y”字型的两个链表。<br><strong>思路</strong>：只需要判断两个链表的最后一个节点是否相同即可。这样，只需要比较一次，但两个链表都遍历到尾部，时间复杂度为O(len1+len2)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * -----判断两个单链表是否相交------</div><div class="line"> * test: (null, null), (null, head2),(head1, null), (head1和head2相交), (head1和head2不相交)</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> head1 链表1</div><div class="line"> * <span class="doctag">@param</span> head2 链表2</div><div class="line"> * <span class="doctag">@return</span> boolean。 true：两个链表相交； false：两个链表不相交</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isLinkListIntersect</span><span class="params">(Node head1, Node head2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head1 == <span class="keyword">null</span> || head2 == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    Node tail1 = head1;</div><div class="line">    Node tail2 = head2;</div><div class="line">    <span class="keyword">while</span> (tail1.next != <span class="keyword">null</span>) &#123;</div><div class="line">        tail1 = tail1.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (tail2.next != <span class="keyword">null</span>) &#123;</div><div class="line">        tail2 = tail2.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> tail1 == tail2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="获取两个单链表相交的结点"><a href="#获取两个单链表相交的结点" class="headerlink" title="获取两个单链表相交的结点"></a>获取两个单链表相交的结点</h4><p>若两个链表相交，则获取相交处的结点。 即“Y”的交点<br><strong>思路</strong>：如果有交点，则两个链表从交点到尾部一定是相同的元素，而且这段距离小于或等于最短的链表。</p>
+<ul>
+<li>则可以定义两个指针pFront和pBack，pBack指向较短链表的首部，pFront指向较长链表的lenLong- lenShort位置</li>
+<li>两个指针同时移动，直到找到相同结点。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取两个单链表相交的结点</div><div class="line"> * test:(null, null), (null, head2),(head1, null), (head1和head2相交), (head1和head2不相交)</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> head1 链表1</div><div class="line"> * <span class="doctag">@param</span> head2 链表2</div><div class="line"> * <span class="doctag">@return</span> Node 返回两个链表相交的结点。若没有相交，则返回null</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getCommonNode</span><span class="params">(Node head1, Node head2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head1 == <span class="keyword">null</span> || head2 == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">int</span> len1 = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> len2 = <span class="number">1</span>;</div><div class="line">    Node tail1 = head1;</div><div class="line">    Node tail2 = head2;</div><div class="line">    <span class="keyword">while</span> (tail1.next != <span class="keyword">null</span>) &#123;</div><div class="line">        tail1 = tail1.next;</div><div class="line">        ++len1;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (tail2.next != <span class="keyword">null</span>) &#123;</div><div class="line">        tail2 = tail2.next;</div><div class="line">        ++len2;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (tail1 != tail2) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;<span class="comment">//不相交</span></div><div class="line">    &#125;</div><div class="line">    Node pFront = <span class="keyword">null</span>;</div><div class="line">    Node pBack = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">int</span> distance = <span class="number">0</span>;</div><div class="line">    <span class="comment">//确定head1和heda2哪个比较长，pBack指向短的链表表头</span></div><div class="line">    <span class="keyword">if</span> (len1 &lt;= len2) &#123;</div><div class="line">        pBack = head1;</div><div class="line">        pFront = head2;</div><div class="line">        distance = len2 - len1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        pBack = head2;</div><div class="line">        pFront = head1;</div><div class="line">        distance = len1 - len2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//让pFront指向lenLong-lenShort的位置</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; distance; i++) &#123;</div><div class="line">        pFront = pFront.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//两个指针同时向链表尾部移动，直到找到交点。</span></div><div class="line">    <span class="keyword">while</span> (pBack != pFront) &#123;</div><div class="line">        pBack = pBack.next;</div><div class="line">        pFront = pFront.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pFront;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="判断单链表是否有环"><a href="#判断单链表是否有环" class="headerlink" title="判断单链表是否有环"></a>判断单链表是否有环</h4><p>如果链表有环，单用一个指针是永远无法遍历到尾部的。那么，判断是否有环的思路，仍然是<strong>两个指针</strong>。<br><strong>思想</strong>：</p>
+<ul>
+<li>定义两个指针都指向head</li>
+<li>一个指针一次走两步，另一个指针一次走一步。</li>
+<li>如果两个指针指到了同一个元素，证明有环。<br>该算法的时间复杂度是O(n)<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 判断单链表是否有环</div><div class="line"> * test：(null), (偶数个元素、偶数环元素的链表)， （偶数个元素且无环的链表），(奇数个元素、奇数环的链表)，</div><div class="line"> * （奇数个元素且无环的链表），（1个元素的无环链表），（1个元素有环链表），（只有2个元素且有环的链表），（圈链表）</div><div class="line"> * <span class="doctag">@param</span> head 待判断是否有环的链表</div><div class="line"> * <span class="doctag">@return</span> boolean 是否有环。false：无环。true：有环</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(Node head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    Node p1 = head;</div><div class="line">    Node p2 = head;</div><div class="line">    <span class="keyword">while</span> (p2 != <span class="keyword">null</span> &amp;&amp; p2.next != <span class="keyword">null</span>) &#123;</div><div class="line">        p1 = p1.next;</div><div class="line">        p2 = p2.next.next;<span class="comment">//这一步需要考虑健壮性。即如果p2.next为null，则p2.next.next就会报异常。所以，要保证p2.next不为null</span></div><div class="line">        <span class="keyword">if</span> (p1 == p2) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="判断有环单链表中，环的长度"><a href="#判断有环单链表中，环的长度" class="headerlink" title="判断有环单链表中，环的长度"></a>判断有环单链表中，环的长度</h4><p><strong>思想</strong>：可以利用hasCycle的思路，如果找到相遇的结点了。那么p2从相遇的结点开始，再次走到此结点时走的距离，就是环的长度了。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 判断有环单链表中，环的长度</div><div class="line"> * test：(null), (偶数个元素、偶数环元素的链表)， （偶数个元素且无环的链表），(奇数个元素、奇数环的链表)，</div><div class="line"> * （奇数个元素且无环的链表），（1个元素的无环链表），（1个元素有环链表），（只有2个元素且有环的链表），（圈链表）</div><div class="line"> * @param head 待计算环长度的链表</div><div class="line"> * @return int 若有环，返回环的长度；若无环，返回0；</div><div class="line"> */</div><div class="line">public static int cycleLength(Node head) &#123;</div><div class="line">    if (head == null || head.next == null) return 0;</div><div class="line">    Node p1 = head;</div><div class="line">    Node p2 = head;</div><div class="line">    Node kNode = null;//p1和p2相遇时的结点。</div><div class="line">    //p1和p2相遇</div><div class="line">    while (p2 != null &amp;&amp; p2.next != null) &#123;</div><div class="line">        p1 = p1.next;</div><div class="line">        p2 = p2.next.next;</div><div class="line">        if (p1 == p2) &#123;</div><div class="line">            kNode = p2;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    //若p1和p2没有相遇，证明没有环</div><div class="line">    if (p2 == null || p2.next == null) return 0;</div><div class="line"></div><div class="line">    //再次移动p2一圈，计算环长度</div><div class="line">    int length = 1; //先包括p2结点</div><div class="line">    while (p2.next != kNode) &#123;</div><div class="line">        p2 = p2.next;</div><div class="line">        ++length;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return length;</div><div class="line">&#125;</div><div class="line">``` </div><div class="line">---</div><div class="line">#### 获取单链表中，环的起始结点 </div><div class="line">若单链表中存在环，则返回环的起始结点。这个问题可以有三种思路：</div><div class="line">1. 利用环长度的方法计算。</div><div class="line">2. 从交点和相遇点推导步长规律。</div><div class="line">3. 配合HashSet一次遍历</div><div class="line"></div><div class="line">##### 利用环长度的方法计算</div><div class="line">利用环长度的方法计算比较简单</div><div class="line">- 定义两个指针pFront和pBack。</div><div class="line">- 假设环的长度为cycleLength，先让pFront走cycleLength步</div><div class="line">- 让pBack指向head</div><div class="line">- 两个指针同时移动，直到相遇，此时相遇的结点就是环的起始节点。*想不明白的动手画画就知道了。*</div><div class="line">```java</div><div class="line"> /**</div><div class="line"> * 获取单链表中，环的起始结点</div><div class="line"> * test：(null), (偶数个元素、偶数环元素的链表)， （偶数个元素且无环的链表），(奇数个元素、奇数环的链表)，</div><div class="line"> * （奇数个元素且无环的链表），（1个元素的无环链表），（1个元素有环链表），（只有2个元素且有环的链表），（圈链表）</div><div class="line"> * @param head 待处理的链表</div><div class="line"> * @return Node 环的起始结点。 若没有环，则返回null</div><div class="line"> */</div><div class="line">public static Node getCycleStartNode1(Node head) &#123;</div><div class="line">    int cycleLength = cycleLength(head);</div><div class="line">    if (cycleLength == 0) &#123;</div><div class="line">        return null; //环长度为0</div><div class="line">    &#125; else &#123;</div><div class="line">        Node pFront = head;</div><div class="line">        Node pBack = head;</div><div class="line">        for (int i = 0; i &lt; cycleLength; i++) &#123;</div><div class="line">            pFront = pFront.next;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        while (pFront != pBack) &#123;</div><div class="line">            pFront = pFront.next;</div><div class="line">            pBack = pBack.next;</div><div class="line">        &#125;</div><div class="line">        return pFront;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="从交点和相遇点推导步长规律"><a href="#从交点和相遇点推导步长规律" class="headerlink" title="从交点和相遇点推导步长规律"></a>从交点和相遇点推导步长规律</h5><p><strong>思想</strong>：对于有环链表，我们假设用环的起始结点startNode和相遇结点kNode(用hasCycle方法模拟走一下就知道了)，将链表分为3段。分别是k1，k2，k3.具体见下图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/linkList/linknode.bmp" alt="linkList">  </p>
+<p>假设判断其相遇时（hasCycle方法），一共走了k步。那么</p>
+<ul>
+<li>p1走的步数：<code>k1 + k2 = k</code>;</li>
+<li>p2走的步数：<code>k1 + 2K2 + k3 = 2k</code>;<br>这样，两个公式联立就得<code>k1 = k3</code>.<br>换句话说，当两个结点相遇的时候，将p1再重新指向head，p1和p2一起往后移动，当再次相遇的时候，该结点就是环的起点。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取单链表中，环的起始结点</div><div class="line"> * test：(null), (偶数个元素、偶数环元素的链表)， （偶数个元素且无环的链表），(奇数个元素、奇数环的链表)，</div><div class="line"> * （奇数个元素且无环的链表），（1个元素的无环链表），（1个元素有环链表），（只有2个元素且有环的链表），（圈链表）</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> head 待处理的链表</div><div class="line"> * <span class="doctag">@return</span> Node 环的起始结点。 若没有环，则返回null</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getCycleStartNode2</span><span class="params">(Node head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Node p1 = head;</div><div class="line">    Node p2 = head;</div><div class="line">    <span class="comment">//找到相遇的结点。</span></div><div class="line">    <span class="keyword">while</span> (p2 != <span class="keyword">null</span> &amp;&amp; p2.next != <span class="keyword">null</span>) &#123;</div><div class="line">        p1 = p1.next;</div><div class="line">        p2 = p2.next.next;</div><div class="line">        <span class="keyword">if</span> (p1 == p2) &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (p2 == <span class="keyword">null</span> || p2.next == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>; <span class="comment">//没有环</span></div><div class="line">    <span class="comment">//将p1重新指向head，p1和p2一起走，直到两个指针再次相遇</span></div><div class="line">    p1 = head;</div><div class="line">    <span class="keyword">while</span> (p1 != p2) &#123;</div><div class="line">        p1 = p1.next;</div><div class="line">        p2 = p2.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> p2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="配合HashSet一次遍历"><a href="#配合HashSet一次遍历" class="headerlink" title="配合HashSet一次遍历"></a>配合HashSet一次遍历</h5><p><strong>思想</strong>：可以在遍历的时候，将链表结点放入HashSet中，当遍历时发现有此元素，则该结点就是环的起始结点。这种方法很简洁，但是当结点比较多的时候，空间开销太大。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取单链表中，环的起始结点</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> head 待处理的链表</div><div class="line"> * <span class="doctag">@return</span> Node 环的起始结点。 若没有环，则返回null</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getCycleStartNode3</span><span class="params">(Node head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    HashSet nodeSet = <span class="keyword">new</span> HashSet();</div><div class="line">    Node p = head;</div><div class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> &amp;&amp; !nodeSet.contains(p)) &#123;</div><div class="line">        nodeSet.add(p);</div><div class="line">        p = p.next;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//如果无环，此时p == null，如果有环，此时p指向环的起始结点。</span></div><div class="line">    <span class="keyword">return</span> p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="删除单链表中指定结点"><a href="#删除单链表中指定结点" class="headerlink" title="删除单链表中指定结点"></a>删除单链表中指定结点</h4><p>这个问题有个特殊要求，就是要求时间复杂度<code>O(1)</code><br>常规的思路：对于这样一段链表：<code>n0 -&gt; n1 -&gt; n2 -&gt; n3 -&gt; n4</code> 如果要删除结点<code>n2</code>，可以让<code>n1</code>指向<code>n3</code>。然后释放<code>n2</code>。这样的话需要找到结点<code>n1</code>，时间复杂度为<code>O(n)</code>   </p>
+<p><strong>思想</strong>：对于单链表，可以将<code>n3</code>复制到<code>n2</code>，然后删除<code>n3</code>即可。<em>这样的方法在java中，如果是删除链表最后一个元素，仍然需要找前面的元素。</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 删除单链表中指定结点</div><div class="line"> * test:(null,null),(d1, null),(null, d2),(链表中间的结点) ，(链表结尾的结点)，（链表的头结点）</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> head         待删除的链表</div><div class="line"> * <span class="doctag">@param</span> nodeToDelete 待删除结点</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(Node head, Node nodeToDelete)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || nodeToDelete == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (head.next == <span class="keyword">null</span> &amp;&amp; nodeToDelete == head) &#123;<span class="comment">//当链表只有1 个元素，并且删除此元素</span></div><div class="line">        head = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//如果nodeToDelete是最后一个结点，或链表只有1个结点。则直接置为null，倒数第2个结点的next就指向了null</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (nodeToDelete.next != <span class="keyword">null</span>) &#123;  <span class="comment">//删除中间结点</span></div><div class="line">        nodeToDelete.data = nodeToDelete.next.data;</div><div class="line">        nodeToDelete.next = nodeToDelete.next.next;</div><div class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//删除链表最后一个结点</span></div><div class="line">        Node preNode = head;</div><div class="line">        <span class="keyword">while</span> (preNode.next != nodeToDelete) &#123;</div><div class="line">            preNode = preNode.next;</div><div class="line">        &#125;</div><div class="line">        preNode.next = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>好了，先总结到这里吧。  </p>
+<hr>
+<p>参考资料：</p>
+<blockquote>
+<p><a href="http://blog.csdn.net/fightforyourdream/article/details/16353519" target="_blank" rel="external">http://blog.csdn.net/fightforyourdream/article/details/16353519</a><br><a href="http://www.jb51.net/article/71885.htm" target="_blank" rel="external">http://www.jb51.net/article/71885.htm</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/单链表/" rel="tag">#单链表</a>
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/24/使用R语言绘制词云/" rel="next" title="使用R语言绘制词云">
+                <i class="fa fa-chevron-left"></i> 使用R语言绘制词云
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/25/单链表算法的java实现/"
+           data-title="单链表算法的java实现" data-url="https://FergusChen.github.io/2016/08/25/单链表算法的java实现/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Fergus Chen" />
+          <p class="site-author-name" itemprop="name">Fergus Chen</p>
+          <p class="site-description motion-element" itemprop="description">You will know the truth, and the truth will set you free (John 8:32).</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#单链表的数据结构"><span class="nav-number">1.</span> <span class="nav-text">单链表的数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单链表的倒序输出"><span class="nav-number">2.</span> <span class="nav-text">单链表的倒序输出</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#迭代实现"><span class="nav-number">2.1.</span> <span class="nav-text">迭代实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#递归实现"><span class="nav-number">2.2.</span> <span class="nav-text">递归实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找单链表倒数第k个元素"><span class="nav-number">3.</span> <span class="nav-text">查找单链表倒数第k个元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通过获取链表的长度的实现"><span class="nav-number">3.1.</span> <span class="nav-text">通过获取链表的长度的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过两个指针实现"><span class="nav-number">3.2.</span> <span class="nav-text">通过两个指针实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取单链表的中间元素"><span class="nav-number">4.</span> <span class="nav-text">获取单链表的中间元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两个有序单链表合并"><span class="nav-number">5.</span> <span class="nav-text">两个有序单链表合并</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#归并排序的思想合并"><span class="nav-number">5.1.</span> <span class="nav-text">归并排序的思想合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#递归合并"><span class="nav-number">5.2.</span> <span class="nav-text">递归合并</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断两个单链表是否相交"><span class="nav-number">6.</span> <span class="nav-text">判断两个单链表是否相交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取两个单链表相交的结点"><span class="nav-number">7.</span> <span class="nav-text">获取两个单链表相交的结点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断单链表是否有环"><span class="nav-number">8.</span> <span class="nav-text">判断单链表是否有环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断有环单链表中，环的长度"><span class="nav-number">9.</span> <span class="nav-text">判断有环单链表中，环的长度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#从交点和相遇点推导步长规律"><span class="nav-number">9.1.</span> <span class="nav-text">从交点和相遇点推导步长规律</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配合HashSet一次遍历"><span class="nav-number">9.2.</span> <span class="nav-text">配合HashSet一次遍历</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除单链表中指定结点"><span class="nav-number">10.</span> <span class="nav-text">删除单链表中指定结点</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fergus Chen</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"FergusChen"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

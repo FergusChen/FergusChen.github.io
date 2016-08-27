@@ -206,8 +206,7 @@ install.packages(&quot;wordcloud&quot;)
 <p>首先说下<strong>.gitignore文件</strong>。虽然使用git可以对任何文件进行版本控制，包括源代码、二进制文件、配置文件、甚至视频等多媒体文件。但是，通常在项目中不需要对某些文件进行版本控制。比如jar文件，有的jar文件甚至有100多兆，而且每次编译都会重新生成，也根本没必要进行版本控制。所以，定义.gitignore文件还是很有必要的。  </p>
 <p>.gitignore文件跟.git在同级目录下，通常在项目的根目录下。在git init初始化时，会生成.git文件夹（隐藏的），<strong>但默认是不会生成.gitignore文件的</strong>。所以，需要手动添加.gitignore文件，然后可以参考这个项目，确定哪些文件可以被忽略：<a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a>  </p>
 <p>出现.gitignore文件无效的原因就是，在git初始化时，忘记添加.gitignore文件了。已经add commit push过了之后，才添加.gitignore文件。<code>.gitignore文件只对还没有加入版本管理的文件起作用，已经添加到版本管理中的文件，.gitignore也不会负责删除。</code>  </p>
-<p>这样的话，只能手动删除缓存中的文件，然后再add、commit、push。运行如下命令：    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rm -r --cached .</div><div class="line">git add .</div><div class="line">git commit -m &quot;gitignore重新配置&quot;</div></pre></td></tr></table></figure>
+<p>这样的话，只能手动删除缓存中的文件，然后再add、commit、push。运行如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rm -r --cached .</div><div class="line">git add .</div><div class="line">git commit -m &quot;gitignore重新配置&quot;</div></pre></td></tr></table></figure></p>
 <p>之后，.gitignore就起作用了。注意每次修改.gitignore都需要清除缓存啊。</p>
 ]]></content>
     </entry>

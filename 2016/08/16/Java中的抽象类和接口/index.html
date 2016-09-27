@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,抽象类,接口," />
+  <meta name="keywords" content="抽象类,接口,java," />
 
 
 
@@ -90,7 +90,7 @@
 <meta property="og:url" content="https://FergusChen.github.io/2016/08/16/Java中的抽象类和接口/index.html">
 <meta property="og:site_name" content="城造在山上">
 <meta property="og:description" content="写这篇文章，是想从面向对象设计的角度出发，去探讨抽象类和接口。也是对抽象类和接口要点的总结。">
-<meta property="og:updated_time" content="2016-08-16T09:43:36.318Z">
+<meta property="og:updated_time" content="2016-09-27T11:26:13.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中的抽象类和接口">
 <meta name="twitter:description" content="写这篇文章，是想从面向对象设计的角度出发，去探讨抽象类和接口。也是对抽象类和接口要点的总结。">
@@ -327,10 +327,9 @@
 <h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><p>我们知道，抽象是面向对象的四大特性之一。我们从现实世界的事物中可以抽象出事物的属性和功能。通过分析不同的事物，发现彼此之间可能存在很多不同的关系，比如层次的继承关系、部分与整体强相关的组合关系、部分与整体弱相关的聚合关系等等。其中，将事物的共性（属性和方法）抽取出来，就形成父子继承关系。在这个过程中，有些方法是有默认实现的，就可以在父类中定义方法体（尽管子类可以覆盖）。但有些只知道有此方法，根本不知道子类会如何实现。这时候，抽象类就派上用场了。<code>注意：抽象类描述的仍是继承关系。</code>  </p>
 <p>抽象类用于定义所有子类共同的、但不确定如何实现的成员方法。Java中抽象类的使用有如下要点：</p>
 <ul>
-<li>抽象方法必须定义在抽象类中；</li>
-<li>抽象类和抽象方法都必须被abstract关键字修饰；</li>
+<li>抽象方法必须定义在抽象类中；反过来，如果一个类含有抽象方法，则该类必须定义为抽象类。抽象类和抽象方法都要用abstract关键字修饰；</li>
 <li>抽象类不能被初始化。解释的话，知乎上的一个回复也很贴切：周星驰的电影中那个去水果店，揪住老板说要一斤水果！老板问他你要什么水果，他说他就要水果！这个水果就是抽象类，你如果能在水果店买到一斤叫水果的水果，那就能实例化一个抽象类。</li>
-<li>抽象类的方法必须在子类中被覆盖才能使用；</li>
+<li>抽象类的方法必须在子类中实现，如果一个子类只实现了父类的一部分抽象方法，那么该子类仍然是抽象类。</li>
 <li>抽象类中既可以有抽象方法，也可以定义具体的成员变量和成员方法。除了具有抽象方法之外，其它的跟普通类一样定义；</li>
 <li>一旦子类继承了某个抽象类，则抽象类中的抽象方法必须在子类中被覆盖；</li>
 <li>若某个类要继承抽象类，同样使用<strong>extends</strong>关键字，而且是单继承。即一个类只能继承一个抽象类。  </li>
@@ -352,13 +351,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Pocket</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> SIZE = <span class="number">20</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getSome</span><span class="params">()</span></span>;</div><div class="line">    <span class="keyword">int</span> MAX_COUNT = <span class="number">5</span>; <span class="comment">//合法，但不友好，尽量添加public static final修饰</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pubSome</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>另外，接口也可以被继承，但只能被接口继承，甚至可以在接口之间实现多继承。因为接口中的方法只是声明，而具体的实现是在实现此接口的类中。若两个接口中有签名完全相同的方法，一个类实现了这两个接口，只要将接口中声明的这个方法实现了就行，无所谓这个方法是来自哪个接口。<code>注意，不要在不同的接口定义方法名和参数列表都相同，但返回值不相同的方法，这样的设计很糟糕。</code>  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showA</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">implements</span> <span class="title">B</span></span>&#123;  <span class="comment">//必须实现接口A和接口B的所有方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showA</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showB</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="抽象类和接口的比较"><a href="#抽象类和接口的比较" class="headerlink" title="抽象类和接口的比较"></a>抽象类和接口的比较</h4><p>具体使用要点的比较就不多说了，上面都有。  </p>
+<h4 id="抽象类和接口的比较"><a href="#抽象类和接口的比较" class="headerlink" title="抽象类和接口的比较"></a>抽象类和接口的比较</h4><p>因为抽象类仍然是一个类，所以抽象类可以定义构造方法、成员变量、普通方法以及静态方法，而且可以使用public、protected等修饰符。但是这些在接口中都不可以。接口默认修饰符为public static ，不需要在接口中显式声明。比较特别的一点是，接口和抽象类都可以包含静态变量，只是接口中静态变量只能是public static final类型，相当于常量。而抽象类中可以用任意修饰符进行修饰。    </p>
 <p>不过，有的人觉得既然抽象类已经可以定义抽象方法，类可以继承并实现此方法。接口也是定义抽象方法的，而且接口还不能定义成员变量和有实现的成员方法，比抽象类的功能还弱。为什么有抽象类了还需要接口呢？就说接口可以多实现，抽象类只能单继承，但如果Java某一天支持多继承了，是不是接口就没有存在的意义了呢？  </p>
-<p>其实，这样的问题只是从两者功能实现的相似性考虑问题了。然而，看到本质，还是面向对象设计思想。抽象类描述的是<strong>继承</strong>的关系，而接口则是对类的扩展，可以描述<strong>聚合</strong>或<strong>组合</strong>的关系。这个是有很大区别的。比如知乎的鱼鱼鱼举的一个例子就很贴切：</p>
+<p>其实，这样的问题只是从两者功能实现的相似性考虑问题了。然而，看到本质，还是面向对象设计思想。抽象类描述的是<strong>继承</strong>的关系，而接口则是对类的扩展，可以描述<strong>聚合</strong>或<strong>组合</strong>的关系。这个是有很大区别的。比如<code>知乎的鱼鱼鱼</code>举的一个例子就很贴切：</p>
 <blockquote>
 <p>苹果和鸡都可以吃，但是苹果是水果，鸡是动物，这个时候可以通过实现 edible 这个接口。所以说，“接口比类带来更多的灵活性”。   </p>
 </blockquote>
-<p>尽管实际开发中很多功能两者都可以实现，但是良好的实现是取决于良好的面向对象设计思想。这一点也很重要。  </p>
+<p>尽管实际开发中很多功能两者都可以实现，但是良好的实现是取决于良好的面向对象设计思想。这一点也很重要。一般情况下，继承的耦合性太强，而良好的设计往往是高内聚低耦合。因此，开发中<strong>优先选用接口，尽量少用抽象类</strong>。  </p>
 <p>如果对于抽象类和接口比较迷糊，可以到知乎的一个问题上看看，瞬间会清晰很多。<a href="https://www.zhihu.com/question/20111251" target="_blank" rel="external">Java 中的接口有什么作用？</a>   </p>
 <p>若感觉文章中有什么问题，欢迎一起讨论，或者可以帮我指正。非常感谢~</p>
 
@@ -383,11 +382,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag">#java</a>
-          
             <a href="/tags/抽象类/" rel="tag">#抽象类</a>
           
             <a href="/tags/接口/" rel="tag">#接口</a>
+          
+            <a href="/tags/java/" rel="tag">#java</a>
           
         </div>
       

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,时区,时间,pig,oozie,GMT,UTC," />
+  <meta name="keywords" content="MVC,iOS,架构," />
 
 
 
@@ -84,21 +84,19 @@
 
 
 
-<meta name="description" content="在开发过程中常常会碰到时区的问题。有时候明明要获取当前时间，但结果却倒流了8个小时。在打印时间时，也会出现UTC、GMT等后缀。这些关键字都代表什么意思？在开发中应该怎么处理呢？这里就做一个简要的总结。">
+<meta name="description" content="提到MVC时，我们通常会说“MVC设计模式”。的确，MVC是一种古老又经典的设计思想，它将应用程序划分为实体、视图和控制三个逻辑部件，具有逻辑复用、松散耦合等优点。这里从软件架构和软件框架的角度出发，探讨MVC设计思想，并介绍Cocoa框架对MVC的实现。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编程中的时区和时间">
-<meta property="og:url" content="https://FergusChen.github.io/2016/08/17/编程中的时区和时间/index.html">
+<meta property="og:title" content="MVC设计思想">
+<meta property="og:url" content="https://FergusChen.github.io/2016/10/03/MVC设计思想/index.html">
 <meta property="og:site_name" content="城造在山上">
-<meta property="og:description" content="在开发过程中常常会碰到时区的问题。有时候明明要获取当前时间，但结果却倒流了8个小时。在打印时间时，也会出现UTC、GMT等后缀。这些关键字都代表什么意思？在开发中应该怎么处理呢？这里就做一个简要的总结。">
-<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/timezone.gif">
-<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/date1.png">
-<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/date1Formatter.png">
-<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/date2.png">
-<meta property="og:updated_time" content="2016-08-20T14:21:19.549Z">
+<meta property="og:description" content="提到MVC时，我们通常会说“MVC设计模式”。的确，MVC是一种古老又经典的设计思想，它将应用程序划分为实体、视图和控制三个逻辑部件，具有逻辑复用、松散耦合等优点。这里从软件架构和软件框架的角度出发，探讨MVC设计思想，并介绍Cocoa框架对MVC的实现。">
+<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/iOS/mvc.png">
+<meta property="og:image" content="http://oc5u7idl7.bkt.clouddn.com/iOS/MVCwork.png">
+<meta property="og:updated_time" content="2016-10-03T03:15:54.689Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="编程中的时区和时间">
-<meta name="twitter:description" content="在开发过程中常常会碰到时区的问题。有时候明明要获取当前时间，但结果却倒流了8个小时。在打印时间时，也会出现UTC、GMT等后缀。这些关键字都代表什么意思？在开发中应该怎么处理呢？这里就做一个简要的总结。">
-<meta name="twitter:image" content="http://oc5u7idl7.bkt.clouddn.com/timezone.gif">
+<meta name="twitter:title" content="MVC设计思想">
+<meta name="twitter:description" content="提到MVC时，我们通常会说“MVC设计模式”。的确，MVC是一种古老又经典的设计思想，它将应用程序划分为实体、视图和控制三个逻辑部件，具有逻辑复用、松散耦合等优点。这里从软件架构和软件框架的角度出发，探讨MVC设计思想，并介绍Cocoa框架对MVC的实现。">
+<meta name="twitter:image" content="http://oc5u7idl7.bkt.clouddn.com/iOS/mvc.png">
 
 
 
@@ -119,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="https://FergusChen.github.io/2016/08/17/编程中的时区和时间/"/>
+  <link rel="canonical" href="https://FergusChen.github.io/2016/10/03/MVC设计思想/"/>
 
-  <title> 编程中的时区和时间 | 城造在山上 </title>
+  <title> MVC设计思想 | 城造在山上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -281,7 +279,7 @@
             
             
               
-                编程中的时区和时间
+                MVC设计思想
               
             
           </h1>
@@ -293,8 +291,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-17T22:11:40+08:00" content="2016-08-17">
-              2016-08-17
+            <time itemprop="dateCreated" datetime="2016-10-03T11:10:32+08:00" content="2016-10-03">
+              2016-10-03
             </time>
           </span>
 
@@ -304,8 +302,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/17/编程中的时区和时间/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/编程中的时区和时间/" itemprop="commentsCount"></span>
+                <a href="/2016/10/03/MVC设计思想/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/03/MVC设计思想/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -328,36 +326,48 @@
       
 
       
-        <p>在开发过程中常常会碰到时区的问题。有时候明明要获取当前时间，但结果却倒流了8个小时。在打印时间时，也会出现UTC、GMT等后缀。这些关键字都代表什么意思？在开发中应该怎么处理呢？这里就做一个简要的总结。<br><a id="more"></a>  </p>
-<p>我想从时区的简要介绍开始，讨论一下我所遇到过的时区处理问题。<br>由于地球的自转周期是24小时，人们就将地球按经度划分为24个时区。这样，以英国伦敦格林威治天文台的经线（本初子午线）为零时区中心线，向东向西各12个时区。每个时区15度（360/24），这样相邻两个时区的时区中心线就正好相差1个小时。北京位于东八区，地球自西向东自转，北京就比伦敦早8个小时。换句话说，北京的中午12点，伦敦还是凌晨4点。注：有时候北京比伦敦早7个小时，是因为伦敦施行日光节约时制（DST）具体可以google。<br><img src="http://oc5u7idl7.bkt.clouddn.com/timezone.gif" alt="时区图">  </p>
-<p><strong>GMT</strong>：Greenwich Mean Time，即格林威治标准时间，又叫世界时。GMT是以地球自转为基础的时间计量系统。该系统源自于十七世纪成立的英国格林威治皇家天文台，其观测所门口墙上有一个标志24小时的时钟，天文学观测将每日太阳穿过本初子午线的瞬间定为正午时刻。此后，全世界都以GMT时间作为标准时间参考点，根据时区差可以方便地计算当地时间（有时候看到GMT + 8就是这样换算）。但是，因为地球在椭圆轨道运行，其自转是不规则的，所以，GMT时间可能与实际的太阳时会有偏差。所以，从1924年，格林威治天文台每隔1个小时就向全世界发放调时信息。直到后来，有UTC的存在，GMT时间就不再作为世界标准时间。  </p>
-<p><strong>UTC</strong>：Coordinated Universal Time，即协调世界时间，又叫世界标准时间。是以原子时秒长为基础的时间度量系统。UTC在时间上尽量接近于世界时（GMT），其计算过程非常严谨精密。并且UTC时间的精确度高，每日保持与世界时不超过0.9秒的误差。若因为地球自转不均匀而导致原子时和世界时误差变大时，UTC就通过加上正或负的闰秒来补偿，这个由位于巴黎的国际地球自转事务中央局负责。目前，UTC已经作为万维网的标准，广泛应用于计算机系统中了。  </p>
-<p>还有很多时间标准，像是DST、原子时、太阳时、恒星时等，这里就不多讨论了。就是GMT、UTC，若要展开介绍其计算方法、发展历程、应用范围等，内容还是非常多的。但作为程序员，不搞天文地理，没必要太深入。还是简单了解一下，然后就开始应用吧。<br>ps：综上所述，若不追求太精确，GMT和UTC时间是一样的。但实际应用中都有时区的问题。  </p>
-<hr>
-<p>下面分别从iOS、pig、oozie中总结一下date类型关于时区的处理。  </p>
-<h4 id="iOS中的时区问题"><a href="#iOS中的时区问题" class="headerlink" title="iOS中的时区问题"></a>iOS中的时区问题</h4><p>在iOS中，从iOS4.1开始，<code>[NSDate date]</code>方法获取的当前时间是0时区的时间，即比北京时间晚8个小时(倒流8个小时，原本北京时间是20:00，但0时区是12:00)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">NSDate *date1 = [NSDate date];</div><div class="line">NSString *date2Str = @&quot;2016-08-17 20:15&quot;;</div><div class="line">NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];</div><div class="line">[dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];</div><div class="line">NSDate *date2 = [dateFormatter dateFromString:date2Str];</div><div class="line"></div><div class="line">NSLog(@&quot;date1:%@&quot;, [dateFormatter stringFromDate:date1]);</div><div class="line">NSLog(@&quot;date2:%@&quot;, [dateFormatter stringFromDate:date2]);</div></pre></td></tr></table></figure></p>
-<p>比如当前时间是20:15，则在第date1代码处打断点，查看到时间如下:<br><img src="http://oc5u7idl7.bkt.clouddn.com/date1.png" alt="date1">  </p>
-<p>然而，用NSDateFormatter对象转换成字符串，打印出来的时间却是当前时间:<br><img src="http://oc5u7idl7.bkt.clouddn.com/date1Formatter.png" alt="date1Log">    </p>
-<p>所以，在iOS中，NSDateFormatter对象在对时间格式化的时候，已经处理了时区问题。具体来说，NSDateFormatter是将NSDate的0时区处理成当前时区，然后才转化成时间字符串。反过来，如果有一个时间字符串，要通过NSDateFormatter转换成NSDate类型，那么NSDateFormatter也会把时间处理成0时区的时间，如下图:<br><img src="http://oc5u7idl7.bkt.clouddn.com/date2.png" alt="date2">  </p>
-<p>可见，在iOS中，时区问题被NSDateFormatter对象隐藏了.若不涉及到日历、本地通知等操作，程序员也不需要考虑时区。但是，并不是所有的NSDate都是用NSDateFormatter来处理的。可能遇到意想不到的两个时区的时间比较。这样如果要把其中一个时间修改为当前时区的时间，则可以用如下方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSDate *)currentLocalDate&#123;</div><div class="line">    NSDate *date = [NSDate date];</div><div class="line">    NSTimeZone *zone = [NSTimeZone systemTimeZone];</div><div class="line">    NSInteger interval = [zone secondsFromGMTForDate:date];</div><div class="line">    NSDate *localDate = [date dateByAddingTimeInterval:interval];</div><div class="line">    return localDate;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="pig中的时区问题"><a href="#pig中的时区问题" class="headerlink" title="pig中的时区问题"></a>pig中的时区问题</h4><p>在pig抽取数据的时候，记得一次使用<code>value.fields.data#&#39;timestamp&#39; as timestamp:long</code>,获取日志中的时间，然后用<code>UnixToISO(timestamp) as ISOTime</code>进行时间戳的转换，发现得到的结果有很多发生在凌晨2点到5点。后来发现是时区的问题，本身日志应该是在上午10点、11点的。这个目前还不太清楚是什么原因，可能也是环境搭建的问题，回头有精力再深究吧。如果哪位高手知道原因，希望能交流一下，不胜感激。  </p>
-<h4 id="oozie的时区问题"><a href="#oozie的时区问题" class="headerlink" title="oozie的时区问题"></a>oozie的时区问题</h4><p>在oozie启动定时任务的时候，时区问题就更加重要了。但是oozie的时区问题比较棘手，也不知道是因为环境搭建的问题，还是其它原因，我在部署oozie任务时，还要考虑8个小时的时差。（感觉环境搭建好麻烦啊，深刻理解运维人员的辛苦……）  </p>
-<p>因此，在coordinator中，打算7月26日凌晨4点跑的任务，在<code>coordinator-app</code>的<code>start</code>属性就要设置成<code>2016-07-25T20:00Z</code>，如果本身就是处理头一天的数据（即7月25日），并且输出结果的路径按日期进行拼接，则在<code>coordinator.xml</code>的<code>action</code>中就可以指定<code>workflow.xml</code>的路径，同时把日期以变量的形式传入<code>workflow.xml</code>，具体如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">action</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">workflow</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">app-path</span>&gt;</span>$&#123;wf_app_path&#125;<span class="tag">&lt;/<span class="name">app-path</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">name</span>&gt;</span>analysisDate<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;coord:formatTime(coord:nominalTime(),'yyyy-MM-dd')&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">workflow</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>很多时候，因为时区问题会让处理变得比较麻烦，需要灵活使用oozie的EL常量。如下：<br><code>&lt;value&gt;${coord:formatTime(coord:dateOffset(coord:nominalTime(), -1, &#39;DAY&#39;), &#39;yyyy-MM-dd&#39;)}&lt;/value&gt;</code></p>
-<h4 id="XML-Schema日期时间"><a href="#XML-Schema日期时间" class="headerlink" title="XML Schema日期时间"></a>XML Schema日期时间</h4><p>有时候经常看到打印的结果是这种格式：<code>2002-05-30T09:30:10Z</code>， 有日期，有时间没问题。那么其中的<strong>T</strong>和<strong>Z</strong>代表什么含义呢？<br>这其实是标准XML Schema的日期时间数据格式。其具体的格式是这样的：<br><code>&quot;YYYY-MM-DDThh:mm:ss&quot;</code> </p>
+        <p>提到MVC时，我们通常会说“MVC设计模式”。的确，MVC是一种古老又经典的设计思想，它将应用程序划分为实体、视图和控制三个逻辑部件，具有逻辑复用、松散耦合等优点。这里从软件架构和软件框架的角度出发，探讨MVC设计思想，并介绍Cocoa框架对MVC的实现。<br><a id="more"></a></p>
+<h4 id="软件架构"><a href="#软件架构" class="headerlink" title="软件架构"></a>软件架构</h4><p>软件架构从根本上说，是一种设计思想。软件架构并不是一个可执行的软件，而是对系统结构组成的规划和职责设定，是系统的蓝图。</p>
+<p>一个系统通常可以从逻辑上划分为多个部分：有处理计算的，有处理界面的，有处理数据的，有处理业务规则的，有处理安全的等等。<strong>软件架构</strong>的意义就在于，它可以将这些可逻辑划分的部分独立出来，用约定的接口和协议将它们有机地结合在一起，形成职责清晰、结构清楚的软件结构。</p>
+<p>软件架构是一个逻辑性的框架描述，就好像一个别墅的设计图。它只描述房间的间架结构、楼层之间如何分隔、上下水系统在哪里安装、电路如何布线等。这些仅停留在纸面上，它并没有一个实际的可执行部分。 </p>
+<p>大部分的软件架构都是由一个设计思想，加上若干设计模式，再规定一系列的接囗规范、传输协议、实现标准等文档构成。</p>
+<p>例如：J2EE规范描述了一系列逻辑部件，如Session Bean、Entity Bean、Message Driven Bean、JAAS、JDBC等，描述了这些部件的职责和它们的规范，约定了这些部件之间交互的接口和协议、标准，如SOAP、RMI、WebService等。并规划出一个蓝图，描述如何利用这些逻辑部件来实现一个系统。J2EE并不是一个可执行的软件，而是一个软件架构。</p>
+<p>再例如：MVC将应用程序划分为实体、视图和控制三个逻辑部件。规定了这三个逻辑部件的职责和交互规范（稍后详述）。因此，MVC是一个软件架构。</p>
+<p>有了软件架构，各个厂商就可以根据软件架构开发出若干可执行的半成品，例如某设计模式的实现框架、接口的实现框架、传输协议的开发包等，这些半成品就是<strong>软件框架</strong>。开发者可以利用软件框架开发出符合某个架构的应用程序。例如，基于J2EE的软件架构，各个厂商开发出各自的产品，包括开发工具和应用容器，开发者利用这些工具和容器就能方便地开发出符合J2EE规范的应用程序，这些工具和容器就是软件框架。</p>
+<h4 id="软件框架"><a href="#软件框架" class="headerlink" title="软件框架"></a>软件框架</h4><p>软件框架是软件架构的一种实现，是一个半成品。它通常针对一个软件架构当中某一个特定的问题提供解决方案和辅助工具。因此，如果说架构是一个逻辑的构成，框架则是一个可用的半成品，是可执行的。</p>
+<p>例如，MVC是一种软件架构，而Struts、JSF、WEBWork等开源项目则分别以自己的方式实现了这一架构，提供了一个半成品，帮助开发人员迅速地开发一个符合MVC架构的应用程序。而Cocoa框架也是对MVC框架的实现，而且对MVC的设计思想发挥地淋漓尽致。</p>
+<p>接下来就结合Cocoa框架，介绍MVC设计思想。</p>
+<h4 id="MVC设计思想"><a href="#MVC设计思想" class="headerlink" title="MVC设计思想"></a>MVC设计思想</h4><h5 id="MVC中各元素的职责"><a href="#MVC中各元素的职责" class="headerlink" title="MVC中各元素的职责"></a>MVC中各元素的职责</h5><p>MVC模式把代码划分为3个不同类型：</p>
 <ul>
-<li><code>YYYY</code> 表示年份</li>
-<li><code>MM</code> 表示月份</li>
-<li><code>DD</code> 表示日</li>
-<li><code>T</code> 表示必需的时间部分的起始</li>
-<li><code>hh</code> 表示小时</li>
-<li><code>mm</code> 表示分钟</li>
-<li><code>ss</code> 表示秒  </li>
+<li><strong>模型(Model)</strong>：Model描述了“应用程序是什么”。其用于封装和保存应用程序的数据，同时定义操控和处理该数据的逻辑和运算。而且，Model通常是可以<strong>复用</strong>的。<ul>
+<li>一个良好的MVC应用程序应该将所有重要的数据都封装到Model中，而应用程序在将持久化的数据(文件、数据库)加载到内存中时，也应该保存在Model中。因为Model本身就代表着业务的特定数据对象。如：日程对象、朋友信息对象等。</li>
+<li>虽然View是用于展示Model中的数据，但是，MVC设计思想中，Model一般独立于View。例如，对于朋友信息，我们需要存储“生日”，而Model通常只需要存储一个日期字符串，至于“生日”在View中以什么样的格式展示给用户，这就不是Model要考虑的问题。在Cocoa框架中，Model通常都是实体类。</li>
 </ul>
-<p>比如：<code>&lt;startdate&gt;2002-05-30T09:00:00&lt;/startdate&gt;</code><br>在日期或时间的结果加<strong>Z</strong>表示时区<code>(TimeZone)</code>，如果单纯一个Z，表示使用世界协调时间(UTC)，默认的是0时区。当然，也可以通过在时间后添加一个正的或负时间的方法，来规定以世界调整时间为准的偏移量。比如这样：<br><code>&lt;start&gt;09:30:10+06:00&lt;/start&gt;</code><br><code>&lt;start&gt;09:30:10-06:00&lt;/start&gt;</code></p>
-<p>先写到这里吧，有更多实践的时候再补充。  </p>
+</li>
+<li><strong>视图(View)</strong>：View是展现给用户的界面，这个不用多说。View通常包括窗口、按钮等控件。其主要目的是显示来自Model的数据，并让用户可以进行交互。<ul>
+<li>View中的数据可以来自一个Model的一部分，也可以来自一个完整的Model，甚至来自多个Model。在Cocoa框架中，View也是可复用的。</li>
+<li>View需要保证能够正确展示Model中的数据，因此，就需要知道Model中数据的变化。但是，Model一般不绑定到特定视图，因此，就需要其它方法（后面提到Cocoa框架中是怎么实现的） </li>
+</ul>
+</li>
+<li><strong>控制器(Controller)</strong>：Controller充当View和Model的媒介，将模型和视图绑定在一起，包括处理用户点击、输入等，以此修改Model。反过来，View需要知道Model中数据的变化，也是通过Controller来完成。除此之外，Controller还可以为应用程序协调任务，管理其它对象的生命周期。</li>
+</ul>
+<p>Cocoa设计者采用MVC作为设计指导原则，Cocoa框架是始终忠诚于MVC的。在iOS端的Cocoa Touch框架中，View通常都是一些很通用的UI元素，像是界面按钮、xib文件等；而Controller则是明确地指向特定UI元素，指明其如何工作，像是UIViewController、UITableViewController等；而Model则是一些实体类等，是完全独立于UI。</p>
+<p>在典型的Cocoa MVC设计中，用户通过View进行了一个输入，View就会通知Controller，Controller会理解用户在View上的操作，同时告诉Model如何去处理这个输入，例如，添加一条数据，修改某个字段等。Model据此修改数据。基于用户的输入，Controller也会告诉View去改变它的状态，如“使一个Button变为不可用状态”等。相反的，如果Model有了变化（如接入了新的数据源），Model也会告诉Controller去更新1个或多个View，以便显示Model中数据的变化。</p>
+<h5 id="MVC中各元素的通信"><a href="#MVC中各元素的通信" class="headerlink" title="MVC中各元素的通信"></a>MVC中各元素的通信</h5><p>下面结合斯坦福大学iOS课程中的内容，说明Cocoa框架中，Model、View、Controller是如何通信的。具体如下图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/iOS/mvc.png" alt="MVC的通信方式"></p>
+<p>这幅图以交通规则的方式来描述Model、View和Controller之间的通信。Model和View之间是双黄线，这代表这两者之间是不能进行通信的。从Controller到View和Model都是白色虚线，这代表Controller向View和Model的通信是完全没问题的，而反过来是白色实线，这代表Model和View并不能毫无限制地与Controller通信，而是需要通过其它方式，例如View到Controller的delegate，Model到Controller的广播等。  </p>
+<p>下面具体说明Cocoa MVC中的实现：<br><strong>Controller → Model</strong>：Controller需要知道Model的一切，并且有能力与Model完全通信，按照任何方式使用其公共API。因为Controller的一个很重要的工作就是将Model呈现给用户、使用视图作为其仆从。</p>
+<p><strong>Controller → View</strong>：Controller和View的通信也是完全不受限制，因为Controller可以随时吩咐View构建用户界面，view中的元素会在controller中创建一个outlet，controller通过outlet可以完全掌控view。包括view有哪些更新，需要显示写什么等等。(Outlet：当我们有一个属性，是从Controller指向View，这个属性就叫Outlet。这个属性通常是weak引用的，因为view本身strong保持这个属性，而一旦这个元素被移出view，该元素在堆中的空间就会被释放，同时指针置为nil。这也正好是我们想要的，因为元素被移除view，也就不会再更新或者获取它了。)</p>
+<p><strong>View → Controller</strong>：View对象是通用的，所以不能知道太多Controller的东西。所以View到Controller是以<strong>盲</strong>的方式通信的，即不知道Controller中的类，而是通过一种结构化方式（两端都同意这样通信），具体包括以下3种：</p>
+<ol>
+<li><strong>目标动作（Target Action）</strong>：Controller在自身设置一个目标（Target），他会提供一个动作(Action)给View，当view有此动作时，就会触发相应的方法。即对于View，当View需要做什么时，如view是个按钮，当有人点击按钮时；或View是个滑动条，当有人动了这个滑动条时，就把这个Action发送给Controller。这样View不知道到底是纸牌游戏控制器还是空间游戏控制器，或者其他控制器，只需要发现有人动了，发送action给target(Controller)即可。View想告诉控制器发生了什么事，就会向控制器的Target发射一个action，就像射箭一样。控制器收到后，就会执行相应的方法。注意，Action是在Controller定义的，其代表Controller可以响应的动作，如按钮按下，滑动条滚动等。Action与outlet正好相反。</li>
+<li><strong>委托（delegate）</strong>：有时动作比较复杂，一个Action无法描述清楚，这里设置三个Action：will、should、did描述。然而，View不处理这些逻辑。因此，就需要用协议对这些Action进行封装，凡实现此协议的Controller，就知道有哪些Action，需要实现哪些Action。此时，这个Controller就是委托。比如滚动视图，滚动视图想要Controller知道用户是“已经”滚动过了；或者用户刚按到这里想要滚动，滚动视图要告诉Controller“将要”滚动，或者用户刚按到这里，滚动视图想知道是否可以滚动“should”？所有这些问题，滚动视图没有足够的逻辑去知道答案，所以滚动视图可以把这些问题的权力委托给其他对象，滚动视图甚至不知道这些对象属于哪个类，但是知道这些对象可以处理这些逻辑。在委托协议中提供这些方法，视图控制器只需要实现对应的委托方法，就能响应相应的动作。</li>
+<li><strong>数据源（Datasource）</strong>：有时View不关心will、should、did，而是想知道数量，像是音乐播放器，视图不应该“拥有”它们所显示的数据，即数据不是视图类内部的属性，而是Model的。这时View想知道歌曲的Count，就使用Datasource，Datasource不关心will、should、did，它会要求计数。这时Controller去Model中查看，有1000首歌，返回给View，View就会做相应的处理。当要求指到260首歌曲时（滚动条），这时View会向Controller发送消息：给我第260首歌曲，还有后面10个(UITableview的单元格重用)，Controller就会回到Model请求更多数据，然后返回给View。这就是View通过Controller和Model通信的过程。Datasource也是一种特殊的委托。所以在iOS中有一些类有数据源，同时通常也还有委托，如UITableview等。</li>
+</ol>
+<p><strong>Model → Controller</strong>：通知（notification）和键值观察（key value observing KVO），就像Model进行电台广播（Radio Station broadcast）。Model对UI一无所知，但是有时数据源会发生改变，如网络数据库中某个网络位置上的数据发生了变化。控制器需要知道这些信息，就使用类似广播的机制，即通知和键值观察。Controller会接收这样的消息，如果发生变化，Controller会直接与Model通信。</p>
+<p>一个app可能有多个View，一个View中也会有多个不同区域，这样就需要合并多个MVC，一个MVC可以将其他MVC作为自己视图的一部分。所以MVC也是一个层次的关系，一个MVC可以作为另一个较大的MVC的仆从，并且可以一直往下串联，形成更复杂的应用。如日历App，先有一整年的View，点击某月进入月View，点击某日进入日View，某日可能有日程信息，点击进入日程View。各个View有不同的信息，都有自己的MVC，其中后3个MVC是顶层MVC的仆从。<br><img src="http://oc5u7idl7.bkt.clouddn.com/iOS/MVCwork.png" alt="MVCs working together"></p>
+<p>参考及推荐阅读：</p>
 <blockquote>
-<p>如果本文有出于我个人理解或表达的错误，还望指正。<br>如果本文有涉及到版权、知识产权的问题，请及时与我联系。</p>
+<p>《Thinking in UML》 谭云杰<br><a href="http://www.infoq.com/cn/articles/rethinking-mvc-mvvm" target="_blank" rel="external">被误解的MVC和被神化的MVVM  · 唐巧</a> </p>
 </blockquote>
 
       
@@ -381,19 +391,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/MVC/" rel="tag">#MVC</a>
+          
             <a href="/tags/iOS/" rel="tag">#iOS</a>
           
-            <a href="/tags/时区/" rel="tag">#时区</a>
-          
-            <a href="/tags/时间/" rel="tag">#时间</a>
-          
-            <a href="/tags/pig/" rel="tag">#pig</a>
-          
-            <a href="/tags/oozie/" rel="tag">#oozie</a>
-          
-            <a href="/tags/GMT/" rel="tag">#GMT</a>
-          
-            <a href="/tags/UTC/" rel="tag">#UTC</a>
+            <a href="/tags/架构/" rel="tag">#架构</a>
           
         </div>
       
@@ -402,17 +404,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/16/Java中的抽象类和接口/" rel="next" title="Java中的抽象类和接口">
-                <i class="fa fa-chevron-left"></i> Java中的抽象类和接口
+              <a href="/2016/10/01/二叉树的遍历-java实现/" rel="next" title="二叉树的遍历(java实现)">
+                <i class="fa fa-chevron-left"></i> 二叉树的遍历(java实现)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/gitignore不起作用的解决方案/" rel="prev" title=".gitignore不起作用的解决方案">
-                .gitignore不起作用的解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -438,8 +436,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/17/编程中的时区和时间/"
-           data-title="编程中的时区和时间" data-url="https://FergusChen.github.io/2016/08/17/编程中的时区和时间/">
+      <div class="ds-thread" data-thread-key="2016/10/03/MVC设计思想/"
+           data-title="MVC设计思想" data-url="https://FergusChen.github.io/2016/10/03/MVC设计思想/">
       </div>
     
   </div>
@@ -523,7 +521,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS中的时区问题"><span class="nav-number">1.</span> <span class="nav-text">iOS中的时区问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pig中的时区问题"><span class="nav-number">2.</span> <span class="nav-text">pig中的时区问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#oozie的时区问题"><span class="nav-number">3.</span> <span class="nav-text">oozie的时区问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XML-Schema日期时间"><span class="nav-number">4.</span> <span class="nav-text">XML Schema日期时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件架构"><span class="nav-number">1.</span> <span class="nav-text">软件架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件框架"><span class="nav-number">2.</span> <span class="nav-text">软件框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVC设计思想"><span class="nav-number">3.</span> <span class="nav-text">MVC设计思想</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MVC中各元素的职责"><span class="nav-number">3.1.</span> <span class="nav-text">MVC中各元素的职责</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MVC中各元素的通信"><span class="nav-number">3.2.</span> <span class="nav-text">MVC中各元素的通信</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

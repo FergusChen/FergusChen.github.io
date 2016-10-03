@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法,LeetCode," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,16 +84,15 @@
 
 
 
-<meta name="description" content="问题描述给定一个十进制的正整数number，从number中去掉n个数字，使得剩余的数字组成的数最大（不改变数字顺序）。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="保留最大整数">
-<meta property="og:url" content="https://FergusChen.github.io/2016/09/22/保留最大整数/index.html">
+<meta name="description" content="You will know the truth, and the truth will set you free (John 8:32).">
+<meta property="og:type" content="website">
+<meta property="og:title" content="城造在山上">
+<meta property="og:url" content="https://FergusChen.github.io/tags/架构/index.html">
 <meta property="og:site_name" content="城造在山上">
-<meta property="og:description" content="问题描述给定一个十进制的正整数number，从number中去掉n个数字，使得剩余的数字组成的数最大（不改变数字顺序）。">
-<meta property="og:updated_time" content="2016-09-22T07:59:26.818Z">
+<meta property="og:description" content="You will know the truth, and the truth will set you free (John 8:32).">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="保留最大整数">
-<meta name="twitter:description" content="问题描述给定一个十进制的正整数number，从number中去掉n个数字，使得剩余的数字组成的数最大（不改变数字顺序）。">
+<meta name="twitter:title" content="城造在山上">
+<meta name="twitter:description" content="You will know the truth, and the truth will set you free (John 8:32).">
 
 
 
@@ -114,9 +113,9 @@
 
 
 
-  <link rel="canonical" href="https://FergusChen.github.io/2016/09/22/保留最大整数/"/>
+  <link rel="canonical" href="https://FergusChen.github.io/tags/架构/"/>
 
-  <title> 保留最大整数 | 城造在山上 </title>
+  <title> 标签: 架构 | 城造在山上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -147,7 +146,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,140 +254,46 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        架构
+        <small>标签</small>
+      </h2>
+    </div>
 
     
-      <header class="post-header">
+      
 
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
+            <a class="post-title-link" href="/2016/10/03/MVC设计思想/" itemprop="url">
               
-                保留最大整数
+                <span itemprop="name">MVC设计思想</span>
               
-            
-          </h1>
+            </a>
         
+      </h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T15:55:37+08:00" content="2016-09-22">
-              2016-09-22
-            </time>
-          </span>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-10-03T11:10:32+08:00"
+              content="2016-10-03" >
+          10-03
+        </time>
+      </div>
 
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/22/保留最大整数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/保留最大整数/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一个十进制的正整数number，从number中去掉n个数字，使得剩余的数字组成的数最大（不改变数字顺序）。<br><a id="more"></a><br>输入两行：第一行输入正整数number，第二行输入要删除的数字个数，举例如下：<br><strong>input</strong>:<br>93024<br>2<br><strong>output</strong>: 934 </p>
-<blockquote>
-<p>完整代码（包括测试用例）: (<a href="https://github.com/FergusChen/AlgoCode" target="_blank" rel="external">https://github.com/FergusChen/AlgoCode</a>)<br>包路径：main.other.RetainMaxNumber </p>
-</blockquote>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>从左到右循环删除delCount个数字，具体每次循环，都遍历整个数字序列。如果位置i的数字比位置i+1的数字小，就把位置i的数字删掉。如果遍历结束后没有删掉数字，则证明最后一个数字是最小的，删除最后一个数字。  </p>
-<h4 id="算法代码"><a href="#算法代码" class="headerlink" title="算法代码"></a>算法代码</h4><p>附上java代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 保留最大整数。</div><div class="line"> * test：（0,0），（20,0），（39220,3），（299342918394023948,5）</div><div class="line"> * <span class="doctag">@param</span> numStr   十进制正整数number</div><div class="line"> * <span class="doctag">@param</span> delCount 要删除的数字个数</div><div class="line"> * <span class="doctag">@return</span> 删除后保留的最大整数字符串</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">retainMaxNumber</span><span class="params">(String numStr, <span class="keyword">int</span> delCount)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (numStr == <span class="keyword">null</span> || numStr.length() == <span class="number">0</span> || delCount &gt;= numStr.length()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"0"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (delCount &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> numStr;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> numLen = numStr.length(); <span class="comment">//获取数字字符串的长度</span></div><div class="line"></div><div class="line">    <span class="comment">//将数字字符串转为整型数组，并存入numArr中。</span></div><div class="line">    ArrayList numArr = <span class="keyword">new</span> ArrayList(numLen);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numLen; i++) &#123;</div><div class="line">        numArr.add(numStr.charAt(i) - <span class="string">'0'</span>);  <span class="comment">//按ASCII码计算得到int值。</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//循环删除delCount个数字，</span></div><div class="line">    <span class="keyword">while</span> (delCount &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">boolean</span> mark = <span class="keyword">false</span>;</div><div class="line">        <span class="comment">//如果numArr[i] 比 numArr[i+1]要小，那么就删除numArr[i]</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numArr.size() - <span class="number">1</span>; i++) &#123;</div><div class="line">            <span class="keyword">if</span> ((<span class="keyword">int</span>) numArr.get(i) &lt; (<span class="keyword">int</span>) numArr.get(i + <span class="number">1</span>)) &#123;</div><div class="line">                numArr.remove(i);</div><div class="line">                mark = <span class="keyword">true</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//如果numArr[i] 大于或等于 numArr[i+1]，则删除最后一个元素</span></div><div class="line">        <span class="keyword">if</span> (!mark) &#123;</div><div class="line">            numArr.remove(numArr.size() - <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        delCount--;<span class="comment">//每次while循环都删除1个元素，delCount--</span></div><div class="line">    &#125;</div><div class="line">    StringBuffer strbuf = <span class="keyword">new</span> StringBuffer();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numArr.size(); i++) &#123;</div><div class="line">        strbuf.append(numArr.get(i));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> strbuf.toString();</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">    String number = sc.nextLine();</div><div class="line">    <span class="keyword">int</span> deleteCount = Integer.valueOf(sc.nextLine());</div><div class="line">    String result = retainMaxNumber(number, deleteCount);</div><div class="line">    System.out.println(result);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/算法/" rel="tag">#算法</a>
-          
-            <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/09/20/用ECharts绘制折线图/" rel="next" title="用ECharts绘制折线图">
-                <i class="fa fa-chevron-left"></i> 用ECharts绘制折线图
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/01/二叉树的遍历-java实现/" rel="prev" title="二叉树的遍历(java实现)">
-                二叉树的遍历(java实现) <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -396,14 +301,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/09/22/保留最大整数/"
-           data-title="保留最大整数" data-url="https://FergusChen.github.io/2016/09/22/保留最大整数/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -423,17 +320,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -476,17 +364,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法代码"><span class="nav-number">3.</span> <span class="nav-text">算法代码</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -603,10 +480,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 

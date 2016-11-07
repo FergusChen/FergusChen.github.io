@@ -53,7 +53,7 @@
 <li>client向RM查询、获取Application的执行进展。</li>
 <li>RM（实际是ASM）将Application执行进展报告发送给 client。  </li>
 </ol>
-<p>附：如有必要，客户端可直接通知RM （实际是ASM）终止Application 的运行（即命令：yarn application -kill application_ID）。</p>
+<p>附：如有必要，client可以直接通知RM （实际是ASM）终止Application 的运行（即命令：yarn application -kill application_ID）。</p>
 <p>而RM、AM和NM的交互过程如图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/RM-AM-NM.png" alt="RM、AM和NM的交互"></p>
 <ol>
 <li>RM(Resource Manager)调度资源并在合适的节点上启动对应的AM(Application Master)。AM向RM注册，包含二者之间的握手信息、AM侦听端口，及后续进行AM管理和监控的URL。</li>

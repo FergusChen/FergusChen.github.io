@@ -4,6 +4,85 @@
   
     
     <entry>
+      <title><![CDATA[YARN集群资源管理器]]></title>
+      <url>https://FergusChen.github.io/2016/11/07/YARN%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8/</url>
+      <content type="html"><![CDATA[<p>终于把毕业答辩的事情完结了，以后可以专心搞技术和分享了。今天先简单说一下<strong>YARN</strong>。事实上，若是在大数据平台上进行数据分析，大可不必对平台底层的资源管理和任务调度进行深入的探究，但是简单地了解一下，对平台上层的开发也是会有一定的帮助。<br><a id="more"></a></p>
+<h4 id="YARN的由来"><a href="#YARN的由来" class="headerlink" title="YARN的由来"></a>YARN的由来</h4><p><code>YARN(Yet Another Resource Negotiator)</code>是hadoop生态中的作业调度和集群资源管理框架，可以对各类应用程序（spark、mapreduce、storm等）提供资源管理和任务调度的支持。YARN是hadoop2.0才出现的，也是hadoop生态在集群管理方面的一个突破。<br>这个突破体现在哪里呢？这里需要简单介绍下hadoop1.0存在的问题，主要针对hadoop1.0的HDFS和mapreduce两大模块。<br><strong>HDFS1.0存在的问题</strong>：</p>
+<ul>
+<li>Namenode单点故障：集群的文件都是以“块(block)”的形式存储，并且为了容错，每个block有多个副本。namenode需要记录<strong>整个集群所有block及其副本</strong>的元数据信息（fsimage：文件目录结构，block和文件的映射关系等）和操作日志（edits），因此，在hadoop1.0框架中，namenode设计为单个节点，通常部署在一台性能强劲的计算机上，客户端上传的所有文件，都要先与namenode进行交互，由namenode管理。这样，namenode的可用性决定整个集群的存储系统的可用性。</li>
+<li>Namenode压力过大，内存受限： 在集群启动时，namenode需要将集群所有block的元数据信息加载到内存，这样，当文件越来越多时，namenode的内存压力也会遇到瓶颈。  </li>
+</ul>
+<p>MapReduce1.0存在的问题：</p>
+<ul>
+<li>JobTracker单点故障：MapReduce作为hadoop的计算框架，其作业的调度和资源分配是通过JobTracker完成。但是，因为资源管理是全局性的，因此，JobTracker仍然是单个节点，通常部署在一台性能强劲的计算机上。一旦该节点失败，整个集群的作业就全部失败。</li>
+<li>不支持MapReduce之外的其它计算框架：hadoop1.0仅能支持MapReduce计算框架，随着人们对实时性的要求，spark、storm等计算框架也应运而出，但是hadoop1.0并不能良好地支持。</li>
+<li>JobTracker访问压力大，影响系统扩展性：在hadoop1.0中，JobTracker负责所有作业的调度、各个作业的生命周期、各个作业中所有task的跟踪和失败重启等。因此，当集群中作业很多时，所有作业的map task和reduce task都要与JobTracker进行交互，JobTracker的状态就变成下面这种情况：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/jobTracker%E5%8D%95%E7%82%B9%E5%8E%8B%E5%8A%9B.png" alt="jobTracker单点压力过大"><br>很显然，这是hadoop1.0的一个瓶颈。</li>
+</ul>
+<p>为解决hadoop1.0中JobTracker单点故障问题，hadoop2.0开始将Hadoop 1.0中的JobTracker的集群资源分配和作业调度分为两个守护进程来控制，分别是Global Resource Manager(以下简称RM)和每个Application的ApplicationMaster(以下简称AM)，这也是YARN最重要的两个组件。在YARN基础上，可以支持MapReduce、Spark等多种计算框架。<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/hadoop%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B-yarn.png" alt="hadoop1.0到hadoop2.0的演进"></p>
+<h4 id="YARN的主要模块"><a href="#YARN的主要模块" class="headerlink" title="YARN的主要模块"></a>YARN的主要模块</h4><p>YARN的主要模块如下：</p>
+<ul>
+<li><strong>Global Resource Manager(RM)</strong>：负责集群资源的统一管理和计算框架的管理，主要包括调度器和应用程序管理器。<ul>
+<li>Scheduler：根据集群资源和队列设置进行资源分配。目前YARN可以支持的资源有CPU core和内存。</li>
+<li>Applications Manager(AsM)：负责整个集群所有的Application，包括Application的提交，与调度器协商资源，启动和监控AM的运行状态等。</li>
+</ul>
+</li>
+<li><strong>Application Master(AM)</strong>：管理单个Application的生命周期，包括向RM申请Application需要的资源，task的状态管理、失败重启等。不同的Application（MapReduce、 Spark、Storm等）对Application Master有不同的实现，如此，YARN才能支持不同的计算框架。</li>
+<li>Node Manager (NM)：集群中节点管理器，主要是单个节点的资源管理监控和容器管理。需要向RM汇报单个结点资源的使用情况。</li>
+<li>Container：YARN中对资源的抽象，封装了一部分CPU core、内存等资源，也是作业运行的单位。  </li>
+</ul>
+<p>YARN设计这些模块完成集群资源的管理和所有作业的调度，所以，在hadoop2.0之后，也就没有JobTracker和TaskTracker了。</p>
+<h4 id="YARN的架构"><a href="#YARN的架构" class="headerlink" title="YARN的架构"></a>YARN的架构</h4><p>YARN的架构如下：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/yarn_architecture.gif" alt="YARN架构"></p>
+<p>client向RM提交Application。Node Manager向RM反馈各个结点资源的使用情况，还剩余多少资源。Container封装单个Node的部分资源，AM管理Container中所有的task，并向RM(实际是AsM)汇报该Application的运行状态。<br>这样，我们可以看到：  </p>
+<ul>
+<li>1个实际的物理机器对应1个Node Manager</li>
+<li>1个Node Manager可以包含多个Container，并管理多个Application Master</li>
+<li>1个Application Master对应多个Container用于并行处理task。</li>
+</ul>
+<blockquote>
+<p>很多资料有提到提交Job，运行Application等，可能翻译过来都差不多，这里补充一下Job和Application的区别：   </p>
+<ul>
+<li>Job：源于Hadoop 1.0的概念，一般指用户提交的MapReduce作业。当然，具体到客户端提交的spark作业，也会根据action，将作业的DAG划分成多个job。这个以后再具体说。   </li>
+<li>Application：从Hadoop 2.0引入，即可以指传统的MapReduce作业，也可以指其它计算框架的作业，如Spark、Storm作业等，甚至是一系列作业组成的有向无环图。<br>这里统一使用Application。</li>
+</ul>
+</blockquote>
+<h4 id="YARN作业提交过程"><a href="#YARN作业提交过程" class="headerlink" title="YARN作业提交过程"></a>YARN作业提交过程</h4><p>具体来说，client向RM提交作业的处理过程如下：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/clientToRM.png" alt="client to RM"></p>
+<ol>
+<li>client向RM（Resource Manager）提交一个应用。</li>
+<li>RM生成一个唯一标识的应用的application_ID，同时将当前Node Manager向RM汇报的集群资源描述信息反馈给客户端。</li>
+<li>client根据RM的反馈信息，初始化Application，包括调度队列、用户及优先级信息，启动AM所需的信息（例如Application的Jar包、资源申请信息、安全Token等等）。</li>
+<li>client向RM查询、获取Application的执行进展。</li>
+<li>RM（实际是ASM）将Application执行进展报告发送给 client。  </li>
+</ol>
+<p>附：如有必要，client可以直接通知RM （实际是ASM）终止Application 的运行（即命令：yarn application -kill application_ID）。</p>
+<p>而RM、AM和NM的交互过程如图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/RM-AM-NM.png" alt="RM、AM和NM的交互"></p>
+<ol>
+<li>RM(Resource Manager)调度资源并在合适的节点上启动对应的AM(Application Master)。AM向RM注册，包含二者之间的握手信息、AM侦听端口，及后续进行AM管理和监控的URL。</li>
+<li>RM接收AM注册信息，并反馈响应给AM，包含集群资源信息。</li>
+<li>AM向RM发起资源分配请求，包含需要使用的Container个数，同时附带归属于本AM的Container信息。</li>
+<li>AM向RM获取资源分配进度信息，并保持与RM之间的心跳。</li>
+<li>RM根据资源调度策略，分配容器资源给AM。</li>
+<li>AM根据RM反馈信息，指示对应NM(Node Manager)完成Container的启动。一个NM上可以启动多个Container。</li>
+<li>在Container运行过程中， AM向NM获取Container的运行状态报告。</li>
+<li>NM将Container的运行状态信息反馈给AM。 </li>
+</ol>
+<p>说到这里，就可以明白，为什么有时候客户端提交一个作业，等了很久，只分配到1个container在running，而在spark UI中根本看不到任何task在运行。这是因为RM只是根据（–driver-memory）为AM分配了1个container，而AM还没有申请到运行executor需要的资源。  </p>
+<h4 id="HA框架"><a href="#HA框架" class="headerlink" title="HA框架"></a>HA框架</h4><p>说到这里，我们会发现，在YARN架构中，<strong>Global Resource Manager</strong>仍然是单点的，难道不会出现单点故障的瓶颈吗？<br>事实上，RM的确是单点的，但是其解决单点故障的原理是HA(Highly Available)框架。在Hadoop2.0以后，HA框架用于解决NameNode的单点故障。而Cloudera根据HA框架进行改造，实现了RM的高可用性。HA框架已经作为hadoop2.0的Common组件的一部分，NameNode的HA框架具体如图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E5%A4%A7%E6%95%B0%E6%8D%AE/HA%E6%A1%86%E6%9E%B6.jpg" alt="HA框架"></p>
+<ul>
+<li>DN：DataNode 数据节点</li>
+<li>NN：NameNode节点，用于记录元数据的位置。</li>
+<li>JN：Journal Node，实现共享内存。</li>
+</ul>
+<p>DataNode（DN）和HDFS1.0一样，而NameNode不再是单点，而是Active NameNode(NN Active，主NameNode)和Standby NameNode(NN Standby，备份NameNode)，其单点故障的解决思路就是主备切换。有NameNode Standby随时待命，通过JN（Journal Node）共享存储空间，对NameNode进行热备。而 JN通过特定的算法实现共享存储。 FailoverController Active是失败结点控制器，用于实时监控NameNode的运行状态。其通过与ZooKeeper发送心跳，实现结点失败的监控。一旦失败，会自动启动Standby NameNode进行接管。Standby NameNode也有相应的心跳，监控其运行状态。</p>
+<p>Journal Node也是2N+1个节点。元数据信息同时写入到所有Journal Node。只要N+1个写入成功，则认为写成功。<br>这样，具有很强的健壮性，比如3个Journal Node，可以允许1个Journal Node宕机。当然，一个Journal Node写失败后，就不会往该Node上写数据，直到此Node恢复正常，则自动通过其它Journal Node补全缺失日志。注：一般部署奇数个Journal Node，结点越多，容错性越好。</p>
+<p>而Resource Manager的高可用性和NameNode高可用性类似，只是Standby Resource Manager不再是热备，而是当Active Resource Manager宕机后，其通过Journal Node读取所需信息。不需要热备的主要原因就是：Resource Manager的信息是动态变化的，很快就会变旧，而且其数据量不大，其中，ApplictionMaster信息，NodeManager信息，资源使用信息等都可以通过动态重构获取。</p>
+<blockquote>
+<p>要更深入的理解，也可以参考：<br><a href="http://dongxicheng.org/mapreduce-nextgen/hadoop-yarn-ha-in-cdh5/" target="_blank" rel="external">http://dongxicheng.org/mapreduce-nextgen/hadoop-yarn-ha-in-cdh5/</a><br>《Hadoop技术内幕：深入解析YARN架构设计与实现原理》</p>
+<p>如果本文有出于我个人理解或表达的错误，还望指正。<br>如果本文有涉及到版权、知识产权的问题，请及时与我联系。</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[MVC设计思想]]></title>
       <url>https://FergusChen.github.io/2016/10/03/MVC%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/</url>
       <content type="html"><![CDATA[<p>提到MVC时，我们通常会说“MVC设计模式”。的确，MVC是一种古老又经典的设计思想，它将应用程序划分为实体、视图和控制三个逻辑部件，具有逻辑复用、松散耦合等优点。这里从软件架构和软件框架的角度出发，探讨MVC设计思想，并介绍Cocoa框架对MVC的实现。<br><a id="more"></a></p>

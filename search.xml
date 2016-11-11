@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title><![CDATA[【随记】hexo+next部署后无法显示博客]]></title>
+      <url>https://FergusChen.github.io/2016/11/11/%E3%80%90%E9%9A%8F%E8%AE%B0%E3%80%91hexo-next%E9%83%A8%E7%BD%B2%E5%90%8E%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%8D%9A%E5%AE%A2/</url>
+      <content type="html"><![CDATA[<p>最近写博客时发现，用hexo s本地调试时，博客显示都很正常，但hexo d部署到github之后，文章和目录都是空白，但链接可点击。最后排查原因，找解决方案，最终还是解决了。这里就分享一下。<a id="more"></a></p>
+<p>用hexo d部署后的结果如下图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E9%9A%8F%E8%AE%B0/%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%97%AE%E9%A2%98.png" alt="博客无法显示"></p>
+<p>域名地址没问题，多次刷新也是同样的界面，并且能访问github，证明不是网速的问题。直接看的话可能是某些css文件和js文件加载失败了。那就chrome浏览器F12查看一下吧。结果如下图：<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E9%9A%8F%E8%AE%B0/vendors.png" alt="文件加载失败"><br>大量的<code>404</code>，而且仔细观察，基本上都是<code>vendors</code>文件夹下的内容。</p>
+<p>好吧，既然我的博客出问题了，其它人应该也碰到过类似问题，就带着这些线索搜索吧。最后，找到了原因：最近<code>github page</code>进行了更新，过滤掉了<code>source/vendors</code>目录的访问，导致该目录下的文件在加载时都是404错误。</p>
+<p>那么解决方案呢？</p>
+<p>我这边采取了<code>github next issue</code>的解决方案，即修改路径，将原来的<code>vendors</code>都改成<code>lib</code>。修改的主要内容如下：</p>
+<ul>
+<li>next主题的<code>_config.yml</code>文件：修改<code>_config.yml</code>文件中的<code>_internal: vendors</code>为<code>_internal: lib</code></li>
+<li>vendors文件夹：修改<code>themes\next\source\vendors</code>为<code>themes\next\source\lib</code></li>
+<li><code>themes\next\.bowerrc</code>文件：修改<code>.bowerrc</code>文件中的<code>vendors</code>为<code>lib</code></li>
+<li><code>themes\next\.gitignore</code>文件：修改<code>.gitignore</code>文件中的<code>vendors</code>为<code>lib</code></li>
+<li><code>themes\next\.javascript_ignore</code>文件：修改<code>.javascript_ignore</code>文件中的<code>vendors</code>为<code>lib</code></li>
+<li><code>themes\next\bower.json</code>文件：修改<code>bower.json</code>文件中的<code>vendors</code>为<code>lib</code></li>
+</ul>
+<p>所有这些修改完成之后，再次<code>hexo g</code>生成文件。<code>hexo d</code>部署。再次刷新页面，发现一切都正常了。<br><img src="http://oc5u7idl7.bkt.clouddn.com/%E9%9A%8F%E8%AE%B0/%E5%8D%9A%E5%AE%A2%E6%88%90%E5%8A%9F.png" alt="博客正常显示"></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[YARN集群资源管理器]]></title>
       <url>https://FergusChen.github.io/2016/11/07/YARN%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8/</url>
       <content type="html"><![CDATA[<p>终于把毕业答辩的事情完结了，以后可以专心搞技术和分享了。今天先简单说一下<strong>YARN</strong>。事实上，若是在大数据平台上进行数据分析，大可不必对平台底层的资源管理和任务调度进行深入的探究，但是简单地了解一下，对平台上层的开发也是会有一定的帮助。<br><a id="more"></a></p>
